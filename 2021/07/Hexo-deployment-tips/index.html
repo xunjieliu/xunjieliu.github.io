@@ -28,7 +28,7 @@
 <meta property="og:description" content="在2019年因为科研记录的原因搭建了一个不算简陋的个人博客之后，科研项目结束后就结束了个人博客的更新。 今年因为种种原因，我决定重新捡起来个人博客项目，遗憾的是旧的博客文件遗失了。搭建博客的技术细节虽然简单，但也忘记的差不多了，在花了半天时间重新回忆起来之后，使用Hexo搭建了一个全新的项目，这次只追求效率，个性化的部分以后再补上吧，同时以下是一些部署时候遇到的问题以及解决办法总结。">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-07-30T14:51:30.000Z">
-<meta property="article:modified_time" content="2021-07-30T15:10:43.675Z">
+<meta property="article:modified_time" content="2021-07-30T15:13:15.494Z">
 <meta property="article:author" content="Xunjie Liu">
 <meta name="twitter:card" content="summary">
 
@@ -174,7 +174,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2021-07-30 22:51:30 / Modified: 23:10:43" itemprop="dateCreated datePublished" datetime="2021-07-30T22:51:30+08:00">2021-07-30</time>
+              <time title="Created: 2021-07-30 22:51:30 / Modified: 23:13:15" itemprop="dateCreated datePublished" datetime="2021-07-30T22:51:30+08:00">2021-07-30</time>
             </span>
 
           
@@ -203,7 +203,8 @@
 <li><p>部署设置</p>
  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
 
-</li>
+<p> config.yml</p>
+ <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line"><span class="attr">type:</span> <span class="string">&#x27;git&#x27;</span></span><br><span class="line"><span class="attr">repo:</span> <span class="string">&#x27;git@github.com:XunjieLiu/xunjieliu.github.io.git&#x27;</span></span><br><span class="line"><span class="attr">branch:</span> <span class="string">main</span></span><br></pre></td></tr></table></figure></li>
 </ol>
 
     </div>
