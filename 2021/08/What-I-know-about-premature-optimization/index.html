@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"xunjieliu.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="前天读到了一篇让我陷入深深的思考的博客，Goodbye, clear code, 说实话这是我第一次听到“过早优化是万恶之源”这句话，很惭愧。在读到这篇博客之前，我个人的习惯是写一个项目前设计，基础功能开发完成之后开始大幅度优化，时时刻刻想着该怎么优化我的代码，让他们更加简洁明了，更容易维护，更容易拓展，但这几天我开始思考，这种习惯并不总是个好习惯，有时候会造成与我的想法背道而驰的效果。 BTW，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="What I know about premature optimization">
+<meta property="og:url" content="https://xunjieliu.github.io/2021/08/What-I-know-about-premature-optimization/index.html">
+<meta property="og:site_name" content="Xunjie">
+<meta property="og:description" content="前天读到了一篇让我陷入深深的思考的博客，Goodbye, clear code, 说实话这是我第一次听到“过早优化是万恶之源”这句话，很惭愧。在读到这篇博客之前，我个人的习惯是写一个项目前设计，基础功能开发完成之后开始大幅度优化，时时刻刻想着该怎么优化我的代码，让他们更加简洁明了，更容易维护，更容易拓展，但这几天我开始思考，这种习惯并不总是个好习惯，有时候会造成与我的想法背道而驰的效果。 BTW，">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-08-10T03:05:17.000Z">
+<meta property="article:modified_time" content="2021-08-10T03:48:29.607Z">
+<meta property="article:author" content="Xunjie Liu">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://xunjieliu.github.io/2021/08/What-I-know-about-premature-optimization/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>What I know about premature optimization | Xunjie</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Xunjie</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://xunjieliu.github.io/2021/08/What-I-know-about-premature-optimization/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Xunjie Liu">
+      <meta itemprop="description" content="This description is for test">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xunjie">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          What I know about premature optimization
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-08-10 11:05:17 / Modified: 11:48:29" itemprop="dateCreated datePublished" datetime="2021-08-10T11:05:17+08:00">2021-08-10</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>前天读到了一篇让我陷入深深的思考的博客，<a target="_blank" rel="noopener" href="https://overreacted.io/goodbye-clean-code/">Goodbye, clear code</a>, 说实话这是我第一次听到“过早优化是万恶之源”这句话，很惭愧。在读到这篇博客之前，我个人的习惯是写一个项目前设计，基础功能开发完成之后开始大幅度优化，时时刻刻想着该怎么优化我的代码，让他们更加简洁明了，更容易维护，更容易拓展，但这几天我开始思考，这种习惯并不总是个好习惯，有时候会造成与我的想法背道而驰的效果。</p>
+<p>BTW，我喜欢用英文作为标题完全是因为，傻逼iterm输入中文挺麻烦的，直接<code>hexo new &quot;title&quot;</code>就容易了很多，至于博客本身，Typora写起Markdown用户体验比VS code不知道好到哪里去。</p>
+<span id="more"></span>
+
+<h2 id="Goodby-clean-code"><a href="#Goodby-clean-code" class="headerlink" title="Goodby, clean code"></a>Goodby, clean code</h2><p>在这篇博文的开始，作者参与了一个开发中的项目，接手别人的项目进行一个前端页面的开发，有很多类似于这样的JS代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> Rectangle = &#123;</span><br><span class="line">  <span class="function"><span class="title">resizeTopLeft</span>(<span class="params">position, size, preserveAspect, dx, dy</span>)</span> &#123;</span><br><span class="line">    <span class="comment">// 10 repetitive lines of math</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="function"><span class="title">resizeTopRight</span>(<span class="params">position, size, preserveAspect, dx, dy</span>)</span> &#123;</span><br><span class="line">    <span class="comment">// 10 repetitive lines of math</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="function"><span class="title">resizeBottomLeft</span>(<span class="params">position, size, preserveAspect, dx, dy</span>)</span> &#123;</span><br><span class="line">    <span class="comment">// 10 repetitive lines of math</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="function"><span class="title">resizeBottomRight</span>(<span class="params">position, size, preserveAspect, dx, dy</span>)</span> &#123;</span><br><span class="line">    <span class="comment">// 10 repetitive lines of math</span></span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> Oval = &#123;</span><br><span class="line">  <span class="function"><span class="title">resizeLeft</span>(<span class="params">position, size, preserveAspect, dx, dy</span>)</span> &#123;</span><br><span class="line">    <span class="comment">// 10 repetitive lines of math</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="function"><span class="title">resizeRight</span>(<span class="params">position, size, preserveAspect, dx, dy</span>)</span> &#123;</span><br><span class="line">    <span class="comment">// 10 repetitive lines of math</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="function"><span class="title">resizeTop</span>(<span class="params">position, size, preserveAspect, dx, dy</span>)</span> &#123;</span><br><span class="line">    <span class="comment">// 10 repetitive lines of math</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="function"><span class="title">resizeBottom</span>(<span class="params">position, size, preserveAspect, dx, dy</span>)</span> &#123;</span><br><span class="line">    <span class="comment">// 10 repetitive lines of math</span></span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> Header = &#123;</span><br><span class="line">  <span class="function"><span class="title">resizeLeft</span>(<span class="params">position, size, preserveAspect, dx, dy</span>)</span> &#123;</span><br><span class="line">    <span class="comment">// 10 repetitive lines of math</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="function"><span class="title">resizeRight</span>(<span class="params">position, size, preserveAspect, dx, dy</span>)</span> &#123;</span><br><span class="line">    <span class="comment">// 10 repetitive lines of math</span></span><br><span class="line">  &#125;,  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> TextBlock = &#123;</span><br><span class="line">  <span class="function"><span class="title">resizeTopLeft</span>(<span class="params">position, size, preserveAspect, dx, dy</span>)</span> &#123;</span><br><span class="line">    <span class="comment">// 10 repetitive lines of math</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="function"><span class="title">resizeTopRight</span>(<span class="params">position, size, preserveAspect, dx, dy</span>)</span> &#123;</span><br><span class="line">    <span class="comment">// 10 repetitive lines of math</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="function"><span class="title">resizeBottomLeft</span>(<span class="params">position, size, preserveAspect, dx, dy</span>)</span> &#123;</span><br><span class="line">    <span class="comment">// 10 repetitive lines of math</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="function"><span class="title">resizeBottomRight</span>(<span class="params">position, size, preserveAspect, dx, dy</span>)</span> &#123;</span><br><span class="line">    <span class="comment">// 10 repetitive lines of math</span></span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>可以注意得到的是，在方向上有很多很多重复代码，尽管不是完全重复，只是多多少少修改了点，我跟作者第一眼看到这段代码的时候第一反应是一样的，草，重构啊，面向对象写起来呀，实际上，作者也是这么干的：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> Directions = &#123;</span><br><span class="line">  <span class="function"><span class="title">top</span>(<span class="params">...</span>)</span> &#123;</span><br><span class="line">    <span class="comment">// 5 unique lines of math</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="function"><span class="title">left</span>(<span class="params">...</span>)</span> &#123;</span><br><span class="line">    <span class="comment">// 5 unique lines of math</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="function"><span class="title">bottom</span>(<span class="params">...</span>)</span> &#123;</span><br><span class="line">    <span class="comment">// 5 unique lines of math</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="function"><span class="title">right</span>(<span class="params">...</span>)</span> &#123;</span><br><span class="line">    <span class="comment">// 5 unique lines of math</span></span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> Shapes = &#123;</span><br><span class="line">  <span class="function"><span class="title">Oval</span>(<span class="params">...</span>)</span> &#123;</span><br><span class="line">    <span class="comment">// 5 unique lines of math</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="function"><span class="title">Rectangle</span>(<span class="params">...</span>)</span> &#123;</span><br><span class="line">    <span class="comment">// 5 unique lines of math</span></span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我并不是非常熟悉JS代码，但是我完全理解作者在想些什么以及实际在做什么简化工作，我可太有感触了，最近三个月我在写的那个项目，仅仅是一个下载工具加一点点数据集管理工具，就是在边写边优化的过程中完成的，函数写了超过五个，肯定要开始一轮优化，功能实现了一个，又要回过头去看一看哪里能优化，基础功能完成了，往往又会花一整夜来重构。</p>
+<p>到现在为止，我都不知道问题出在了哪里，同理作者也是，作者第二天就被老板叫到办公室去要求revert changes，作者当时跟我一样懵逼。</p>
+<p>作者提到了一个让我感同身受的一点：</p>
+<blockquote>
+<p>Once we learn how to create <a target="_blank" rel="noopener" href="https://www.sandimetz.com/blog/2016/1/20/the-wrong-abstraction">abstractions</a>, it is tempting to get high on that ability, and pull abstractions out  of thin air whenever we see repetitive code. After a few years of  coding, we see repetition <em>everywhere</em> — and abstracting is our new superpower. If someone tells us that abstraction is a <em>virtue</em>, we’ll eat it. And we’ll start judging other people for not worshipping “cleanliness”.</p>
+</blockquote>
+<p>有问题吗？没问题啊，但是接下来作者总结的两点就让我开始思考了：</p>
+<ol>
+<li>首先博文作者在重构这段代码之前，没有联系代码原作者，这是一种非常糟糕的协作方式，哪怕这段重构能提高性能，跟别人合作的时候，非常重要的一点就是building trust, 我不会担心队友会在不跟我打个招呼的前提下，掀桌子式地重构代码，虽然作者没提到，但是我觉得不讨论直接重构是非常危险的，因为队友的一些重复性代码可能是为了填一些隐形的坑的，我直接重构了会酿成大祸的。</li>
+<li>其次，其实作者的重构，并不是improvement，简而言之，局部优化并不代表全局最优，往往会对后面的重构造成极大困难，很好理解的，现在是局部最优的，但是开发完一个功能之后，极有可能面临两种情况，一是由于这段重构代码的存在，优化思路受到了限制，二是我不想被这段代码限制，我需要删掉这段重构代码，全部重写。</li>
+</ol>
+<blockquote>
+<p>Coding is a journey. Think how far you came from your first line of  code to where you are now. I reckon it was a joy to see for the first  time how extracting a function or refactoring a class can make  convoluted code simple. If you find pride in your craft, it is tempting  to pursue cleanliness in code. Do it for a while.</p>
+<p>But don’t stop there. Don’t be a clean code zealot. Clean code is not a goal. </p>
+</blockquote>
+<p>我们有时候还是太过于想当然了，总觉得优化代码是多么毋庸置疑的，优先等级是多么的高，但是考虑到这是软件工程，而不是leetcode算法题，还是需要从工程的角度来思考，想的更远一些，我重构了这段代码，收益可能多大？花费了多少时间？未来会造成哪些困难？又会解决哪些困难？会被用多久呢？</p>
+<h2 id="Premature-optimization-is-the-root-of-all-evil"><a href="#Premature-optimization-is-the-root-of-all-evil" class="headerlink" title="Premature optimization is the root of all evil"></a>Premature optimization is the root of all evil</h2><ol>
+<li>如果我不优化代码，最终的产品会是一个灾难，甚至项目本身就是个灾难</li>
+<li>我也不想浪费大量的时间在细枝末节上的优化，亦或者某个不常用的功能的大量优化，快速迭代更重要</li>
+</ol>
+<p>我理解的过早优化，就像是公司只有100个客户规模的时候，我们后端在针对高并发服务进行优化设计，当公司官网直邮几个子页面的时候，我们开始研究微服务架构。</p>
+<h3 id="过早优化的原因"><a href="#过早优化的原因" class="headerlink" title="过早优化的原因"></a>过早优化的原因</h3><ol>
+<li>花费了大量时间在自己可以处理的简单的事情上面，比如说我可能不太会开发网站，但是我花了大量时间在设计前端页面上面</li>
+<li>花费了大量时间在规划上面，就像我现在参与设计的这个平台，跟其他项目成员头脑风暴的时候，大家提出的80%的需求，我都觉得是伪需求，根本没时间做好么</li>
+<li>没有对任务进行优先级排序，这感觉就是个纯粹的管理问题</li>
+</ol>
+<h3 id="对于我的启发"><a href="#对于我的启发" class="headerlink" title="对于我的启发"></a>对于我的启发</h3><p>上一个项目的下载工具核心功能在4月份左右就写完了，但是我一直维护更新到今天，我觉得我前期花在优化上面的时间实在是太多了。之后在这个新的项目里面，我会倾向于问自己，</p>
+<ul>
+<li>优化需要多长时间？很难么？</li>
+<li>值得么？这个功能值不值得我优化，或者值不值得我现在去优化？</li>
+<li>会带来什么负面效果？好接手么？</li>
+<li>会过时么？这个功能下个版本是不是就没了？或者直接整体架构被改了？</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/08/Python-cannot-find-module/" rel="prev" title="Python cannot find module">
+      <i class="fa fa-chevron-left"></i> Python cannot find module
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Goodby-clean-code"><span class="nav-number">1.</span> <span class="nav-text">Goodby, clean code</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Premature-optimization-is-the-root-of-all-evil"><span class="nav-number">2.</span> <span class="nav-text">Premature optimization is the root of all evil</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%87%E6%97%A9%E4%BC%98%E5%8C%96%E7%9A%84%E5%8E%9F%E5%9B%A0"><span class="nav-number">2.1.</span> <span class="nav-text">过早优化的原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E4%BA%8E%E6%88%91%E7%9A%84%E5%90%AF%E5%8F%91"><span class="nav-number">2.2.</span> <span class="nav-text">对于我的启发</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Xunjie Liu</p>
+  <div class="site-description" itemprop="description">This description is for test</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/XunjieLiu" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;XunjieLiu" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xunjieliu97@gmail.com" title="E-Mail → mailto:xunjieliu97@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xunjie Liu</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
