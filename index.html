@@ -172,7 +172,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2021-08-17 15:16:54 / Modified: 17:54:03" itemprop="dateCreated datePublished" datetime="2021-08-17T15:16:54+08:00">2021-08-17</time>
+              <time title="Created: 2021-08-17 15:16:54 / Modified: 17:56:24" itemprop="dateCreated datePublished" datetime="2021-08-17T15:16:54+08:00">2021-08-17</time>
             </span>
 
           
@@ -186,109 +186,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <span id="more"></span>
-
-<h2 id="Grub"><a href="#Grub" class="headerlink" title="Grub"></a>Grub</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo nano /etc/default/grub</span><br><span class="line">sudo update-grub</span><br></pre></td></tr></table></figure>
-
-<ol>
-<li>Uncomment <code>GURB_TIMEOUT_STYLE=hidden</code></li>
-<li>Set <code>GRUB_TIMEOUT=3</code></li>
-</ol>
-<h2 id="APT"><a href="#APT" class="headerlink" title="APT"></a>APT</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo cp /etc/apt/sources.list /etc/apt/sources.list.bk</span><br><span class="line">sudo sed -i &#x27;s/cn.archive.ubuntu.com/mirrors.aliyun.com/g&#x27; /etc/apt/sources.list</span><br><span class="line">sudo apt update</span><br><span class="line">sudo apt upgrade</span><br><span class="line">sudo reboot</span><br></pre></td></tr></table></figure>
-
-<p>Explaination</p>
-<ul>
-<li><code>sed</code> = Stream EDitor</li>
-<li><code>-i</code> = in-place (i.e. save back to the original file)</li>
-<li>The command string<ul>
-<li><code>s</code> = the substitute command</li>
-<li><code>cn.archive.ubuntu.com</code> = a regular expression describing the word to replace (or just the word itself), it depends, can be <code>cn.archive.ubuntu.com</code> or <code>archive.ubuntu.com</code>, depends on your OS</li>
-<li><code>mirrors.aliyun.com</code> = I prefer Aliyun mirror, also you may choose USTC or Tshinghua</li>
-<li><code>g</code> = global (i.e. replace all and not just the first occurrence)</li>
-</ul>
-</li>
-<li><code>/etc/apt/sources.list</code> = the file name</li>
-</ul>
-<h2 id="V2ray"><a href="#V2ray" class="headerlink" title="V2ray"></a>V2ray</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install snapd</span><br><span class="line">sudo snap install qv2ray --edge</span><br></pre></td></tr></table></figure>
-
-<p>Go to <code>https://github.com/XTLS/Xray-core/releases/latest</code> and download <code>Xray-linux-64.zip</code></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cp ~/Downloads/Xray-linux-64.zip ~/Xray-linux-64.zip</span><br><span class="line">mkdir ~/Xray-linux-64 &amp;&amp; cd ~/Xray-linux-64</span><br><span class="line">sudo apt install unzip &amp;&amp; unzip Xray-linux-64.zip</span><br></pre></td></tr></table></figure>
-
-<p>Config Qv2ray</p>
-<ul>
-<li>Subscription address =<code>https://aws-jp-0.duckdns.org/lemon</code></li>
-<li>Subscription type = <code>Builtin Subsription Support: Basic Base64</code></li>
-<li>Listening address = <code>0.0.0.0</code></li>
-<li>Not set as system proxy</li>
-</ul>
-<h2 id="Config-proxies"><a href="#Config-proxies" class="headerlink" title="Config proxies"></a>Config proxies</h2><h3 id="Proxy-in-terminal"><a href="#Proxy-in-terminal" class="headerlink" title="Proxy in terminal"></a>Proxy in terminal</h3><p>Proxy off script:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">source</span> this file <span class="keyword">in</span> shell</span></span><br><span class="line"></span><br><span class="line">unset http_proxy https_proxy ftp_proxy rsync_proxy all_proxy HTTP_PROXY HTTPS_PROXY FTP_PROXY RSYNC_PROXY ALL_PROXY</span><br><span class="line"></span><br><span class="line">echo &quot;Proxy disabled&quot;</span><br></pre></td></tr></table></figure>
-
-<p>Proxy on script:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">source</span> this file <span class="keyword">in</span> shell or put <span class="keyword">in</span> /etc/profile.d/</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="built_in">export</span> http_proxy=socks5h://127.0.0.1:1080</span></span><br><span class="line">export http_proxy=http://127.0.0.1:8889</span><br><span class="line">export no_proxy=&quot;127.0.0.1,localhost,.localdomain.com&quot;</span><br><span class="line"></span><br><span class="line">export https_proxy=$http_proxy \</span><br><span class="line">ftp_proxy=$http_proxy \</span><br><span class="line">rsync_proxy=$http_proxy \</span><br><span class="line">all_proxy=$http_proxy \</span><br><span class="line">HTTP_PROXY=$http_proxy \</span><br><span class="line">HTTPS_PROXY=$http_proxy \</span><br><span class="line">FTP_PROXY=$http_proxy \</span><br><span class="line">RSYNC_PROXY=$http_proxy \</span><br><span class="line">ALL_PROXY=$http_proxy \</span><br><span class="line">NO_PROXY=$no_proxy</span><br><span class="line"></span><br><span class="line">echo &quot;Proxy enabled: $&#123;http_proxy&#125;&quot;</span><br></pre></td></tr></table></figure>
-
-<p>Create script:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo nano /etc/proxyon</span><br><span class="line">sudo nano /etc/proxyoff</span><br></pre></td></tr></table></figure>
-
-<h3 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h3><p><code>sudo apt install git</code></p>
-<p>First config</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &quot;XunjieLiu&quot;</span><br><span class="line">git config --global user.email &quot;634629477@qq.com&quot;</span><br><span class="line">git config --global http.proxy 127.0.0.1:8889</span><br><span class="line">git config --global https.proxy 127.0.0.1:8889</span><br></pre></td></tr></table></figure>
-
-<p>Unset proxy</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global http.proxy unset</span><br></pre></td></tr></table></figure>
-
-<h2 id="On-My-Zsh"><a href="#On-My-Zsh" class="headerlink" title="On-My-Zsh"></a>On-My-Zsh</h2><h3 id="Hack-Nerd-Font"><a href="#Hack-Nerd-Font" class="headerlink" title="Hack Nerd Font"></a>Hack Nerd Font</h3><ol>
-<li><p>Download the <a target="_blank" rel="noopener" href="https://github.com/source-foundry/Hack/releases/download/v3.003/Hack-v3.003-ttf.zip">latest version of Hack</a>.</p>
-</li>
-<li><p>Extract the files from the archive (<code>.zip</code>).</p>
-</li>
-<li><p>Copy the font files to either your system font folder (often <code>/usr/share/fonts/</code>) or user font folder (often <code>~/.local/share/fonts/</code> or <code>/usr/local/share/fonts</code>).</p>
-</li>
-<li><p>Copy the font configuration file in <code>config/fontconfig/</code> to either the system font configuration folder (often <code>/etc/fonts/conf.d/</code>) or the font user folder (often <code>~/.config/fontconfig/conf.d</code>)</p>
-</li>
-<li><p>Clear and regenerate your font cache and indexes with the following command:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fc-cache -f -v</span><br></pre></td></tr></table></figure></li>
-<li><p>You can confirm that the fonts are installed with the following command:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fc-list | grep &quot;Hack&quot;</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h3 id="ZSH"><a href="#ZSH" class="headerlink" title="ZSH"></a>ZSH</h3><p>Install</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install -y zsh</span><br></pre></td></tr></table></figure>
-
-<p>Check current shell</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo $SHELL</span><br></pre></td></tr></table></figure>
-
-<p>Switch the default shell</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chsh -s $(which zsh)</span><br></pre></td></tr></table></figure>
-
-<p>Then you better logout and login again</p>
-<h3 id="Oh-My-ZSH"><a href="#Oh-My-ZSH" class="headerlink" title="Oh-My-ZSH"></a>Oh-My-ZSH</h3><p>DNS query online for <code>raw.githubusercontent.com</code>, then:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo nano /etc/hosts</span><br><span class="line">sudo apt install git</span><br><span class="line">sh -c &quot;$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)&quot;</span><br></pre></td></tr></table></figure>
-
-<h3 id="Powerlevel10k"><a href="#Powerlevel10k" class="headerlink" title="Powerlevel10k"></a>Powerlevel10k</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $&#123;ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom&#125;/themes/powerlevel10k</span><br><span class="line">nano ~/.zshrc</span><br></pre></td></tr></table></figure>
-
-<p>Set <code>ZSH_THEME=&quot;powerlevel10k/powerlevel10k&quot;</code> in <code>~/.zshrc</code>, then</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source ~/.zshrc</span><br></pre></td></tr></table></figure>
-
-<h3 id="Plugins"><a href="#Plugins" class="headerlink" title="Plugins"></a>Plugins</h3><ul>
-<li><p><code>zsh-syntax-highlighting</code></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd ~/Downloads</span><br><span class="line">git clone https://github.com/zsh-users/zsh-syntax-highlighting.git</span><br><span class="line">echo &quot;source $&#123;(q-)PWD&#125;/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh&quot; &gt;&gt; $&#123;ZDOTDIR:-$HOME&#125;/.zshrc</span><br><span class="line">source ~/.zshrc</span><br></pre></td></tr></table></figure></li>
-<li><p><code>zsh-autosuggestions</code></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/zsh-users/zsh-autosuggestions $&#123;ZSH_CUSTOM:-~/.oh-my-zsh/custom&#125;/plugins/zsh-autosuggestions</span><br></pre></td></tr></table></figure>
-
-<p>Then <code>~/.zshrc</code></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">plugins=( </span><br><span class="line">    # other plugins...</span><br><span class="line">    zsh-autosuggestions</span><br><span class="line">)</span><br></pre></td></tr></table></figure></li>
-<li><p><code>zsh-completions</code></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/zsh-users/zsh-completions $&#123;ZSH_CUSTOM:=~/.oh-my-zsh/custom&#125;/plugins/zsh-completions</span><br></pre></td></tr></table></figure>
-
-<p>Then <code>~/.zshrc</code></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">plugins=(</span><br><span class="line"><span class="meta">	#</span><span class="bash"> other plugins...</span></span><br><span class="line">	zsh-completions</span><br><span class="line">)</span><br><span class="line">autoload -U compinit &amp;&amp; compinit</span><br></pre></td></tr></table></figure></li>
-<li><p><code>k</code></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/supercrabtree/k $ZSH_CUSTOM/plugins/k</span><br></pre></td></tr></table></figure>
-
-<p>Then <code>~/.zshrc</code></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">plugins=( </span><br><span class="line">    # other plugins...</span><br><span class="line">    k</span><br><span class="line">)</span><br></pre></td></tr></table></figure></li>
-</ul>
-
+          <p>Setup steps for a new clean Debian operating system</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/08/Setup-for-a-new-Ubuntu/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
