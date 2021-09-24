@@ -147,6 +147,187 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://xunjieliu.github.io/2021/09/Notes-for-NAS-building-process/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Xunjie Liu">
+      <meta itemprop="description" content="This description is for test">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xunjie">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/09/Notes-for-NAS-building-process/" class="post-title-link" itemprop="url">Notes for NAS building process</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-09-24 17:13:58 / Modified: 17:17:47" itemprop="dateCreated datePublished" datetime="2021-09-24T17:13:58+08:00">2021-09-24</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>This notes is to record the steps and bugs when I trying to build a demo NAS.</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/09/Notes-for-NAS-building-process/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://xunjieliu.github.io/2021/09/Common-used-Linux-command-summary/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Xunjie Liu">
+      <meta itemprop="description" content="This description is for test">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xunjie">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/09/Common-used-Linux-command-summary/" class="post-title-link" itemprop="url">Common used Linux command summary</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-09-24 17:13:31 / Modified: 17:17:37" itemprop="dateCreated datePublished" datetime="2021-09-24T17:13:31+08:00">2021-09-24</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <span id="more"></span>
+
+<h2 id="Kill"><a href="#Kill" class="headerlink" title="Kill"></a>Kill</h2><ol>
+<li><strong>SIGTERM (15)</strong> — requests a program to stop running and gives it some time to save all of its progress. If you don’t specify the signal when entering the kill command, this signal will be used.</li>
+<li><strong>SIGKILL (9)</strong> — forces programs to stop immediately.</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kill -9 pid</span><br><span class="line">kill -15 pid</span><br></pre></td></tr></table></figure>
+
+<h2 id="Tar"><a href="#Tar" class="headerlink" title="Tar"></a>Tar</h2><ul>
+<li>–delete: delete from the archive</li>
+<li>-r, –append: append files to the end of an archive</li>
+<li>-t, –list: list the contents of an archive</li>
+<li>-x, –extract, –get: extract files from an archive</li>
+<li>-C, –directory=DIR: change to directory DIR</li>
+<li>-f, –file=ARCHIVE: use archive file or device ARCHIVE</li>
+<li>-j, -bzip2: filter the archive through bzip2</li>
+<li>-J, –xz: filter the archive through xz</li>
+<li>-p, –preserve-permissions: extract information about file permissions</li>
+<li>-v, –verbose: verbosely list files processed</li>
+<li>-z, –gzip: filter the archive through gzip</li>
+</ul>
+<h2 id="Create-a-tar-archive-file"><a href="#Create-a-tar-archive-file" class="headerlink" title="Create a tar archive file"></a>Create a tar archive file</h2><p>Create a tar file of <code>/etc</code> directory and <code>/root/anaconda-ks.cfg</code> file</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -cvf myarchive.tar /etc /root/anaconda-ks.cfg</span><br></pre></td></tr></table></figure>
+
+<p>The result archive file called <code>myarchive.tar</code></p>
+<ul>
+<li><code>-c</code>: create a tar file</li>
+<li><code>-v</code>: verbose output</li>
+<li><code>-f</code>: specify the archive file name</li>
+</ul>
+<h2 id="List-the-content-of-archive-file"><a href="#List-the-content-of-archive-file" class="headerlink" title="List the content of archive file"></a>List the content of archive file</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -tvf myarchive.tar</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>-t</code>: view the content of tar files</li>
+<li><code>-v</code>: verbose output</li>
+<li><code>-f</code>: specify the archive file name</li>
+</ul>
+<h2 id="Append-or-add-files-to-end-of-archive"><a href="#Append-or-add-files-to-end-of-archive" class="headerlink" title="Append or add files to end of archive"></a>Append or add files to end of archive</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -rvf data.tar /etc/fstab</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>-r</code>: add /etc/fstab to data.tar</li>
+</ul>
+<h2 id="Extract-files-and-directories-from-archive-file"><a href="#Extract-files-and-directories-from-archive-file" class="headerlink" title="Extract files and directories from archive file"></a>Extract files and directories from archive file</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -xvf myarchive.tar</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>-x</code>: extract files from archive file</li>
+</ul>
+<p>This command would list everything in that archive file under the current directory</p>
+<h2 id="Extract-tar-archive-file-to-a-particular-folder"><a href="#Extract-tar-archive-file-to-a-particular-folder" class="headerlink" title="Extract tar archive file to a particular folder"></a>Extract tar archive file to a particular folder</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -xvf myarchive.tar -C /tmp/</span><br></pre></td></tr></table></figure>
+
+<h2 id="Extract-tar-file-to-a-folder-if-not-exists-create-a-new-one"><a href="#Extract-tar-file-to-a-folder-if-not-exists-create-a-new-one" class="headerlink" title="Extract tar file to a folder, if not exists, create a new one"></a>Extract tar file to a folder, if not exists, create a new one</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -xvf bash_test.tar.gz --one-top-level</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--one-top-level[=DIR]</span><br></pre></td></tr></table></figure>
+
+<p>Extract all files into <em>DIR</em>, or, if used without argument, into a subdirectory named by the base name of the archive (minus standard compression suffixes recognizable by <code>--auto-compress</code>).</p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://xunjieliu.github.io/2021/09/Tips-for-pyinstaller/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -691,80 +872,11 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://xunjieliu.github.io/2021/07/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Xunjie Liu">
-      <meta itemprop="description" content="This description is for test">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Xunjie">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/07/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-07-29 00:29:15" itemprop="dateCreated datePublished" datetime="2021-07-29T00:29:15+08:00">2021-07-29</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-30 23:15:10" itemprop="dateModified" datetime="2021-07-30T23:15:10+08:00">2021-07-30</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Official commands and links from Hexo</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/07/hello-world/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+  </nav>
 
 
 
@@ -829,7 +941,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-count">11</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
