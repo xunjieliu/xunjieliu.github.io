@@ -172,7 +172,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2021-09-24 17:28:24 / Modified: 17:37:08" itemprop="dateCreated datePublished" datetime="2021-09-24T17:28:24+08:00">2021-09-24</time>
+              <time title="Created: 2021-09-24 17:28:24 / Modified: 17:43:22" itemprop="dateCreated datePublished" datetime="2021-09-24T17:28:24+08:00">2021-09-24</time>
             </span>
 
           
@@ -187,168 +187,14 @@
 
       
           <p>This notes is to record the steps and bugs when I trying to build a demo NAS.</p>
-<h2 id="RAID"><a href="#RAID" class="headerlink" title="RAID"></a>RAID</h2><blockquote>
-<p>Redundant Array of Independent Disks (RAID). </p>
-</blockquote>
-<h3 id="Parity-bit"><a href="#Parity-bit" class="headerlink" title="Parity bit"></a>Parity bit</h3><p>Also called as check bit, is a bit added to a string of binary code</p>
-<p><img src="image-20210924100356331.png" alt="image-20210924100356331"></p>
-<blockquote>
-<p>The parity bit ensures that the total number of 1-bits in the string is <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Even_and_odd_numbers">even or odd</a>.[<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Parity_bit#cite_note-1">1]</a></p>
-</blockquote>
-<p>Basically, it is a error detection method.</p>
-<h3 id="RAID-0"><a href="#RAID-0" class="headerlink" title="RAID 0"></a>RAID 0</h3><p>Split data evenly across disks, no redundancy, no fault tolerance</p>
-<p><img src="image-20210924095224242.png" alt="image-20210924095224242"></p>
-<p>The total storage size is determined by the smallest disk in the disk array</p>
-<p>High performance, but no fault tolerance</p>
-<h3 id="RAID-1"><a href="#RAID-1" class="headerlink" title="RAID 1"></a>RAID 1</h3><p>It’s more like mirroring, classic RAID 1 mirrored pair contains 2 disks.</p>
-<p>No parity, striping, spanning of disk space, the size is determined by the smallest one.</p>
-<p><img src="image-20210924095605057.png" alt="image-20210924095605057"></p>
-<p>Performance is mostly influenced by the slowest one.</p>
-<h3 id="RAID-2"><a href="#RAID-2" class="headerlink" title="RAID 2"></a>RAID 2</h3><p>Rarely used</p>
-<blockquote>
-<p><strong>RAID 2</strong>, which is rarely used in practice, stripes data at the <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Bit">bit</a> (rather than block) level, and uses a <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Hamming_code">Hamming code</a> for <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Error_correction">error correction</a>. The disks are synchronized by the controller to spin at the same angular orientation (they reach index at the same time[<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Standard_RAID_levels#cite_note-17">16]</a>), so it generally cannot service multiple requests simultaneously.[<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Standard_RAID_levels#cite_note-vadala-18">17]</a>[<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Standard_RAID_levels#cite_note-marcus-19">18]</a> However, depending with a high rate <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Hamming_code">Hamming code</a>, many spindles would operate in parallel to simultaneously transfer data so that “very high data transfer rates” are possible[<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Standard_RAID_levels#cite_note-20">19]</a> as for example in the <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/DataVault">DataVault</a> where 32 data bits were transmitted simultaneously.</p>
-</blockquote>
-<p>It cannot service multiple requests simultaneously</p>
-<h3 id="RAID-3"><a href="#RAID-3" class="headerlink" title="RAID 3"></a>RAID 3</h3><p>Rarely used also</p>
-<blockquote>
-<p><strong>RAID 3</strong>, which is rarely used in practice, consists of <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Byte">byte</a>-level striping with a dedicated <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Parity_bit">parity</a> disk. One of the characteristics of RAID 3 is that it generally cannot service multiple requests simultaneously, which happens because any single block of data will, by definition, be spread across all members of the set and will reside in the same physical location on each disk. Therefore, any <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Input/output">I/O</a> operation requires activity on every disk and usually requires synchronized spindles.</p>
-<p>This makes it suitable for applications that demand the highest transfer rates in long sequential reads and writes, for example <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Uncompressed_video">uncompressed video</a> editing. Applications that make small reads and writes from random disk locations will get the worst performance out of this level.[<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Standard_RAID_levels#cite_note-marcus-19">18]</a></p>
-<p>The requirement that all disks spin synchronously (in a <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Lockstep_(computing)">lockstep</a>) added design considerations that provided no significant advantages over other RAID levels. Both RAID 3 and RAID 4 were quickly replaced by RAID 5.[<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Standard_RAID_levels#cite_note-meyers-21">20]</a> RAID 3 was usually implemented in hardware, and the performance issues were addressed by using large disk caches.[<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Standard_RAID_levels#cite_note-marcus-19">18]</a></p>
-</blockquote>
-<h3 id="RAID-4"><a href="#RAID-4" class="headerlink" title="RAID 4"></a>RAID 4</h3><p>RAID 4 is not commonly used, data is striped and the records can be read from any disk, but write performance is not so good as random read performance.</p>
-<p><img src="image-20210924100549215.png" alt="image-20210924100549215"></p>
-<p>The first 3 disks is RAID 0, Disk 4 serves as the parity disk having parity blocks Ap, Bp, Cp and Dp. So, if one of the disks fails, the data can be reconstructed using the parity information of that disk. </p>
-<p>The write performance is slow because it need to compute and write the parity information, this problem is solved in RAID 5.</p>
-<p>If Disk 4 fails, there would be no redundancy anymore</p>
-<h3 id="RAID-5"><a href="#RAID-5" class="headerlink" title="RAID 5"></a>RAID 5</h3><p>RAID 5 is like RAID 4, but the parity information is distributed across every disk.</p>
-<p><img src="image-20210924100935448.png" alt="image-20210924100935448"></p>
-<ul>
-<li>Ads: more space than RAID 1, better write performance than RAID 4, better data redundancy</li>
-<li>Disads: Can only handle up to a single disk failure</li>
-</ul>
-<h3 id="RAID-6"><a href="#RAID-6" class="headerlink" title="RAID 6"></a>RAID 6</h3><p>RAID 6 uses double parity blocks to achieve better data redundancy than RAID 5. </p>
-<p>Each disk has two parity blocks which are stored on different disks across the array. RAID 6 is a very practical infrastructure for maintaining high availability systems.</p>
-<p><img src="image-20210924101318439.png" alt="image-20210924101318439"></p>
-<ul>
-<li>Ads: better data redundancy, can handle up to 2 failed disks</li>
-<li>Disads: need more space for parity information</li>
-</ul>
-<h3 id="RAID-10-RAID-1-0"><a href="#RAID-10-RAID-1-0" class="headerlink" title="RAID 10 (RAID 1 + 0)"></a>RAID 10 (RAID 1 + 0)</h3><p>RAID 10 combines both RAID 1 and RAID 0 by layering them in opposite order.</p>
-<p>Combines the fast performance of RAID 0 and data redundancy of RAID 1</p>
-<p><img src="image-20210924101635824.png" alt="image-20210924101635824"></p>
-<ul>
-<li>Disads: Cost per unit memory is high since data is mirrored</li>
-</ul>
-<h2 id="File-systems"><a href="#File-systems" class="headerlink" title="File systems"></a>File systems</h2><h3 id="Disk-Drive-Volume-Partition-and-Image"><a href="#Disk-Drive-Volume-Partition-and-Image" class="headerlink" title="Disk, Drive, Volume, Partition and Image"></a>Disk, Drive, Volume, Partition and Image</h3><ul>
-<li>Drive: A drive is a physical device that’s used to store data. It’s not really a formal term but a commonly-used one.</li>
-<li>Disk: “Disk” is the word used by Unix systems to refer to physical storage devices. It contains volumes of different sizes.</li>
-<li>Partition: A partition is very much like a volume. In fact, the two terms are used almost interchangeably. A partition is a chunk of a disk</li>
-</ul>
-<h3 id="FAT"><a href="#FAT" class="headerlink" title="FAT"></a>FAT</h3><blockquote>
-<p><strong>The File Allocation Table (FAT)</strong> file system is a simple file system originally designed for small disks and simple folder structures.</p>
-<p>The FAT file system is named for its method of organization, the file allocation table, which resides at the beginning of the volume. To protect the volume, two copies of the table are kept, in case one becomes damaged.</p>
-<p><strong>In addition, the file allocation tables and the root folder must be stored in a fixed location so that the files needed to start the system can be correctly located.</strong></p>
-</blockquote>
-<p>File Allocation Table, FAT12, FAT16 abd FAT32, originally from floppy disks.</p>
-<p><img src="image-20210924102909328.png" alt="image-20210924102909328"></p>
-<table>
-<thead>
-<tr>
-<th align="center">System</th>
-<th align="center">Bytes Per Cluster Within File Allocation Table</th>
-<th>Cluster limit</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">FAT12</td>
-<td align="center">1.5</td>
-<td>Fewer than 4087 clusters.</td>
-</tr>
-<tr>
-<td align="center">FAT16</td>
-<td align="center">2</td>
-<td>Between 4087 and 65526 clusters, inclusive.</td>
-</tr>
-<tr>
-<td align="center">FAT32</td>
-<td align="center">4</td>
-<td>Between 65526 and 268,435,456 clusters, inclusive.</td>
-</tr>
-</tbody></table>
-<p>FAT32:</p>
-<ul>
-<li>Boot sector uses a 32-bit field for the sector count, means the maximal FAT volume size to 2 Terabytes with a sector size of 512 bytes,</li>
-<li>Max volume size is 16TB, with a sector of 4096 bytes</li>
-<li>Max file size: 4GB, Min 1 byte</li>
-<li>FAT32 does not include direct built-in support for long filenames</li>
-<li>Partition: MBR</li>
-</ul>
-<p>exFAT:</p>
-<ul>
-<li><strong>exFAT</strong> (<strong>Extensible File Allocation Table</strong>) </li>
-<li>Like NTFS, exFAT has very large limits on file and partition sizes., allowing you to store files much larger than the 4 GB allowed by FAT32.</li>
-<li>Macs offer full read-write support for exFAT</li>
-<li>The PlayStation5 and PlayStation 4 support exFAT; the PlayStation 3 does not. The Xbox Series X, S, and One support it, but the Xbox 360 does not.</li>
-<li>Use it when you need bigger file size and partition limits than FAT32 offers and when you need more compatibility than NTFS offers.</li>
-</ul>
-<h3 id="NTFS"><a href="#NTFS" class="headerlink" title="NTFS"></a>NTFS</h3><p>New Technology File System</p>
-<blockquote>
-<p>NTFS is supported in other desktop and server operating systems as well. <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Linux">Linux</a> and <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/BSD">BSD</a> have a <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Free_and_open-source">free and open-source</a> NTFS driver, called <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/NTFS-3G">NTFS-3G</a>, with both read and write functionality. <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/MacOS">macOS</a> comes with read-only support for NTFS. Windows is additionally capable of directly converting <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/FAT32">FAT32</a>/16/12 into NTFS without the need to rewrite all files.[<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/NTFS#cite_note-10">10]</a></p>
-</blockquote>
-<ul>
-<li>Performance: NTFS allows file compression so your organization can enjoy increased storage space on a disk.</li>
-<li>Security access control: NTFS will enable you to place permissions on files and folders so you can restrict access to mission-critical data.</li>
-<li>Reliability: NTFS focuses on the consistency of the file system so that in the event of a disaster (such as a power loss or system failure), you can quickly restore your data.</li>
-<li>Disk space utilization: In addition to file compression, NTFS also allows disk quotas. This feature enables businesses to have even more control over storage space.</li>
-<li>File system journaling: This means that you can easily keep a log of⁠—and audit⁠—the files added, modified, or deleted on a drive. This log is called the Master File Table (MFT).</li>
-</ul>
-<h3 id="ZFS"><a href="#ZFS" class="headerlink" title="ZFS"></a>ZFS</h3><p>An advanced file system:</p>
-<ul>
-<li>Pooled storage</li>
-<li>Copy-on-write</li>
-<li>Snapshots</li>
-<li>Data integrity verification and automatic repair</li>
-<li>RAID support</li>
-<li>Maximum 16 Exabyte file size</li>
-<li>Maximum 256 Quadrillion Zettabytes storage</li>
-</ul>
-<p>On most files system, when data is overwritten, it is lost forever. On ZFS, the new information is written to a different block. Once the write is complete, the file systems metadata is updated to point to the new info. This ensures that if the system crashes (or something else happens) while the write is taking place, the old data will be preserved. It also means that the system does not need to run <a target="_blank" rel="noopener" href="https://linuxhandbook.com/fsck-command/">fsck</a> after a system crash.</p>
-<p>This features enable snapshot and RAID features</p>
-<h3 id="GPFS"><a href="#GPFS" class="headerlink" title="GPFS"></a>GPFS</h3><blockquote>
-<p>General Parallel File System (GPFS, brand name <strong>IBM Spectrum Scale</strong>) is high-performance <a target="_blank" rel="noopener" href="https://www.weka.io/learn/clustered-file-system/">clustered file system</a> software developed by IBM in 1998.</p>
-</blockquote>
-<p>It can be deployed in <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Shared-disk">shared-disk</a> or <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Shared-nothing">shared-nothing</a> distributed parallel modes, or a combination of these. </p>
-<p>GPFS provides concurrent high-speed file access to applications executing on multiple nodes of clusters.</p>
-<p>Like Hadoop Distributed File System</p>
-<h3 id="Btrfs"><a href="#Btrfs" class="headerlink" title="Btrfs"></a>Btrfs</h3><blockquote>
-<p><strong>btrfs</strong> is a modern copy on write (CoW) filesystem for Linux aimed at implementing advanced features while also focusing on fault tolerance, repair and easy administration. Its main features and benefits are:</p>
-<ul>
-<li><strong>Snapshots</strong> which do not make the full copy of files</li>
-<li><strong>RAID</strong> - support for software-based RAID 0, RAID 1, RAID 10</li>
-<li><strong>Self-healing</strong> - checksums for data and metadata, automatic detection of silent data corruptions</li>
-</ul>
-<p>Development of Btrfs started in 2007. Since that time, Btrfs is a part of the Linux kernel and is under active development.</p>
-<p>Jointly developed at <a target="_blank" rel="noopener" href="https://btrfs.wiki.kernel.org/index.php/Contributors">multiple companies</a>, Btrfs is licensed under the GPL and open for contribution from anyone.</p>
-</blockquote>
-<h3 id="XFS"><a href="#XFS" class="headerlink" title="XFS"></a>XFS</h3><blockquote>
-<p>XFS is a high-performance 64-bit open source filesystem merged into the Linux kernel.</p>
-<p>XFS is supported by most Linux distributions, and is even used as the default filesystem for some Linux distributions.</p>
-<p>XFS supports large files and large file systems. Therefore it can be used as Linux file-system solution to store file contents for a FileNet® repository (File Storage Area).</p>
-<p>XFS is a journaling filesystem and maintains a change log holding the filesystem modifications before they are committed to the filesystem assuring the consistency of the filesystem.</p>
-</blockquote>
-<h2 id="RAID-and-filesystem"><a href="#RAID-and-filesystem" class="headerlink" title="RAID and filesystem"></a>RAID and filesystem</h2><ul>
-<li>The important figures to note are the stripe unit and the stripe width.</li>
-<li>Strip unit: the size of the data written per disk.</li>
-<li>Strip width: the number of data blocks in a stripe.</li>
-<li>RAID 5&amp;6: the stripe width is disks-minus-one or disks-minus-two.</li>
-<li>RAID 1: the strip width is 1</li>
-</ul>
-<p>Smaller strip units means a read can be split across multiple drives, with the resulting increase in bandwidth</p>
-<p>But larger strip units could help with the write performance.</p>
-<p>Many file systems have have a block size which they use to allocate disk space. Files tend to accumulate <strong>at the start of these blocks,</strong> so you want to choose a stripe unit such that the stride width and block sizes <strong>do not fit neatly into each other.</strong> This then ensures that the files are spread evenly across the disks and reduces the risk of “hot spots” where data accumulates on some drives and empty space on others.</p>
-<h3 id="BTRFS"><a href="#BTRFS" class="headerlink" title="BTRFS"></a>BTRFS</h3><p>btrfs has the “btrfs-balance” command for hot spots problem</p>
-<h3 id="XFS-1"><a href="#XFS-1" class="headerlink" title="XFS"></a>XFS</h3><p>XFS is a high-performance file system. It is strongly recommended not to reshape the raid; creating a new array with the same number of data disks and adding that with LVM is the recommended approach.</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/09/Notes-of-my-personal-NAS/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
