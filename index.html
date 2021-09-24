@@ -238,7 +238,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2021-09-24 17:13:31 / Modified: 17:17:37" itemprop="dateCreated datePublished" datetime="2021-09-24T17:13:31+08:00">2021-09-24</time>
+              <time title="Created: 2021-09-24 17:13:31 / Modified: 17:53:45" itemprop="dateCreated datePublished" datetime="2021-09-24T17:13:31+08:00">2021-09-24</time>
             </span>
 
           
@@ -252,64 +252,19 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <span id="more"></span>
-
-<h2 id="Kill"><a href="#Kill" class="headerlink" title="Kill"></a>Kill</h2><ol>
+          <h2 id="Kill"><a href="#Kill" class="headerlink" title="Kill"></a>Kill</h2><ol>
 <li><strong>SIGTERM (15)</strong> — requests a program to stop running and gives it some time to save all of its progress. If you don’t specify the signal when entering the kill command, this signal will be used.</li>
 <li><strong>SIGKILL (9)</strong> — forces programs to stop immediately.</li>
 </ol>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kill -9 pid</span><br><span class="line">kill -15 pid</span><br></pre></td></tr></table></figure>
-
-<h2 id="Tar"><a href="#Tar" class="headerlink" title="Tar"></a>Tar</h2><ul>
-<li>–delete: delete from the archive</li>
-<li>-r, –append: append files to the end of an archive</li>
-<li>-t, –list: list the contents of an archive</li>
-<li>-x, –extract, –get: extract files from an archive</li>
-<li>-C, –directory=DIR: change to directory DIR</li>
-<li>-f, –file=ARCHIVE: use archive file or device ARCHIVE</li>
-<li>-j, -bzip2: filter the archive through bzip2</li>
-<li>-J, –xz: filter the archive through xz</li>
-<li>-p, –preserve-permissions: extract information about file permissions</li>
-<li>-v, –verbose: verbosely list files processed</li>
-<li>-z, –gzip: filter the archive through gzip</li>
-</ul>
-<h2 id="Create-a-tar-archive-file"><a href="#Create-a-tar-archive-file" class="headerlink" title="Create a tar archive file"></a>Create a tar archive file</h2><p>Create a tar file of <code>/etc</code> directory and <code>/root/anaconda-ks.cfg</code> file</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -cvf myarchive.tar /etc /root/anaconda-ks.cfg</span><br></pre></td></tr></table></figure>
-
-<p>The result archive file called <code>myarchive.tar</code></p>
-<ul>
-<li><code>-c</code>: create a tar file</li>
-<li><code>-v</code>: verbose output</li>
-<li><code>-f</code>: specify the archive file name</li>
-</ul>
-<h2 id="List-the-content-of-archive-file"><a href="#List-the-content-of-archive-file" class="headerlink" title="List the content of archive file"></a>List the content of archive file</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -tvf myarchive.tar</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><code>-t</code>: view the content of tar files</li>
-<li><code>-v</code>: verbose output</li>
-<li><code>-f</code>: specify the archive file name</li>
-</ul>
-<h2 id="Append-or-add-files-to-end-of-archive"><a href="#Append-or-add-files-to-end-of-archive" class="headerlink" title="Append or add files to end of archive"></a>Append or add files to end of archive</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -rvf data.tar /etc/fstab</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><code>-r</code>: add /etc/fstab to data.tar</li>
-</ul>
-<h2 id="Extract-files-and-directories-from-archive-file"><a href="#Extract-files-and-directories-from-archive-file" class="headerlink" title="Extract files and directories from archive file"></a>Extract files and directories from archive file</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -xvf myarchive.tar</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><code>-x</code>: extract files from archive file</li>
-</ul>
-<p>This command would list everything in that archive file under the current directory</p>
-<h2 id="Extract-tar-archive-file-to-a-particular-folder"><a href="#Extract-tar-archive-file-to-a-particular-folder" class="headerlink" title="Extract tar archive file to a particular folder"></a>Extract tar archive file to a particular folder</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -xvf myarchive.tar -C /tmp/</span><br></pre></td></tr></table></figure>
-
-<h2 id="Extract-tar-file-to-a-folder-if-not-exists-create-a-new-one"><a href="#Extract-tar-file-to-a-folder-if-not-exists-create-a-new-one" class="headerlink" title="Extract tar file to a folder, if not exists, create a new one"></a>Extract tar file to a folder, if not exists, create a new one</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -xvf bash_test.tar.gz --one-top-level</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--one-top-level[=DIR]</span><br></pre></td></tr></table></figure>
-
-<p>Extract all files into <em>DIR</em>, or, if used without argument, into a subdirectory named by the base name of the archive (minus standard compression suffixes recognizable by <code>--auto-compress</code>).</p>
-</blockquote>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/09/Common-used-Linux-command-summary/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
