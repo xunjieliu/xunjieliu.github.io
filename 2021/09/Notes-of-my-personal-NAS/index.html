@@ -20,28 +20,28 @@
     var CONFIG = {"hostname":"xunjieliu.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="This notes is to record the steps and bugs when I trying to build a demo NAS.">
+  <meta name="description" content="This notes is to record the steps and bugs when I trying to build a demo NAS. RAID Redundant Array of Independent Disks (RAID).   Parity bitAlso called as check bit, is a bit added to a string of bina">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Notes for NAS building process">
-<meta property="og:url" content="https://xunjieliu.github.io/2021/09/Notes-for-NAS-building-process/index.html">
+<meta property="og:title" content="Notes of my personal NAS">
+<meta property="og:url" content="https://xunjieliu.github.io/2021/09/Notes-of-my-personal-NAS/index.html">
 <meta property="og:site_name" content="Xunjie">
-<meta property="og:description" content="This notes is to record the steps and bugs when I trying to build a demo NAS.">
+<meta property="og:description" content="This notes is to record the steps and bugs when I trying to build a demo NAS. RAID Redundant Array of Independent Disks (RAID).   Parity bitAlso called as check bit, is a bit added to a string of bina">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://xunjieliu.github.io/2021/09/images/image-20210924100356331.png">
-<meta property="og:image" content="https://xunjieliu.github.io/2021/09/images/image-20210924095224242.png">
-<meta property="og:image" content="https://xunjieliu.github.io/2021/09/images/image-20210924095605057.png">
-<meta property="og:image" content="https://xunjieliu.github.io/2021/09/images/image-20210924100549215.png">
-<meta property="og:image" content="https://xunjieliu.github.io/2021/09/images/image-20210924100935448.png">
-<meta property="og:image" content="https://xunjieliu.github.io/2021/09/images/image-20210924101318439.png">
-<meta property="og:image" content="https://xunjieliu.github.io/2021/09/images/image-20210924101635824.png">
-<meta property="og:image" content="https://xunjieliu.github.io/2021/09/images/image-20210924102909328.png">
-<meta property="article:published_time" content="2021-09-24T09:13:58.000Z">
-<meta property="article:modified_time" content="2021-09-24T09:17:47.808Z">
+<meta property="og:image" content="https://xunjieliu.github.io/2021/09/Notes-of-my-personal-NAS/image-20210924100356331.png">
+<meta property="og:image" content="https://xunjieliu.github.io/2021/09/Notes-of-my-personal-NAS/image-20210924095224242.png">
+<meta property="og:image" content="https://xunjieliu.github.io/2021/09/Notes-of-my-personal-NAS/image-20210924095605057.png">
+<meta property="og:image" content="https://xunjieliu.github.io/2021/09/Notes-of-my-personal-NAS/image-20210924100549215.png">
+<meta property="og:image" content="https://xunjieliu.github.io/2021/09/Notes-of-my-personal-NAS/image-20210924100935448.png">
+<meta property="og:image" content="https://xunjieliu.github.io/2021/09/Notes-of-my-personal-NAS/image-20210924101318439.png">
+<meta property="og:image" content="https://xunjieliu.github.io/2021/09/Notes-of-my-personal-NAS/image-20210924101635824.png">
+<meta property="og:image" content="https://xunjieliu.github.io/2021/09/Notes-of-my-personal-NAS/image-20210924102909328.png">
+<meta property="article:published_time" content="2021-09-24T09:28:24.000Z">
+<meta property="article:modified_time" content="2021-09-24T09:37:08.350Z">
 <meta property="article:author" content="Xunjie Liu">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://xunjieliu.github.io/2021/09/images/image-20210924100356331.png">
+<meta name="twitter:image" content="https://xunjieliu.github.io/2021/09/Notes-of-my-personal-NAS/image-20210924100356331.png">
 
-<link rel="canonical" href="https://xunjieliu.github.io/2021/09/Notes-for-NAS-building-process/">
+<link rel="canonical" href="https://xunjieliu.github.io/2021/09/Notes-of-my-personal-NAS/">
 
 
 <script id="page-configurations">
@@ -54,7 +54,7 @@
   };
 </script>
 
-  <title>Notes for NAS building process | Xunjie</title>
+  <title>Notes of my personal NAS | Xunjie</title>
   
 
 
@@ -159,7 +159,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://xunjieliu.github.io/2021/09/Notes-for-NAS-building-process/">
+    <link itemprop="mainEntityOfPage" href="https://xunjieliu.github.io/2021/09/Notes-of-my-personal-NAS/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -172,7 +172,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Notes for NAS building process
+          Notes of my personal NAS
         </h1>
 
         <div class="post-meta">
@@ -183,7 +183,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2021-09-24 17:13:58 / Modified: 17:17:47" itemprop="dateCreated datePublished" datetime="2021-09-24T17:13:58+08:00">2021-09-24</time>
+              <time title="Created: 2021-09-24 17:28:24 / Modified: 17:37:08" itemprop="dateCreated datePublished" datetime="2021-09-24T17:28:24+08:00">2021-09-24</time>
             </span>
 
           
@@ -198,24 +198,22 @@
 
       
         <p>This notes is to record the steps and bugs when I trying to build a demo NAS.</p>
-<span id="more"></span>
-
 <h2 id="RAID"><a href="#RAID" class="headerlink" title="RAID"></a>RAID</h2><blockquote>
 <p>Redundant Array of Independent Disks (RAID). </p>
 </blockquote>
 <h3 id="Parity-bit"><a href="#Parity-bit" class="headerlink" title="Parity bit"></a>Parity bit</h3><p>Also called as check bit, is a bit added to a string of binary code</p>
-<p><img src="../images/image-20210924100356331.png" alt="image-20210924100356331"></p>
+<p><img src="image-20210924100356331.png" alt="image-20210924100356331"></p>
 <blockquote>
 <p>The parity bit ensures that the total number of 1-bits in the string is <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Even_and_odd_numbers">even or odd</a>.[<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Parity_bit#cite_note-1">1]</a></p>
 </blockquote>
-<p>Basically, it is a error detection method</p>
+<p>Basically, it is a error detection method.</p>
 <h3 id="RAID-0"><a href="#RAID-0" class="headerlink" title="RAID 0"></a>RAID 0</h3><p>Split data evenly across disks, no redundancy, no fault tolerance</p>
-<p><img src="../images/image-20210924095224242.png" alt="image-20210924095224242"></p>
+<p><img src="image-20210924095224242.png" alt="image-20210924095224242"></p>
 <p>The total storage size is determined by the smallest disk in the disk array</p>
 <p>High performance, but no fault tolerance</p>
 <h3 id="RAID-1"><a href="#RAID-1" class="headerlink" title="RAID 1"></a>RAID 1</h3><p>It’s more like mirroring, classic RAID 1 mirrored pair contains 2 disks.</p>
 <p>No parity, striping, spanning of disk space, the size is determined by the smallest one.</p>
-<p><img src="../images/image-20210924095605057.png" alt="image-20210924095605057"></p>
+<p><img src="image-20210924095605057.png" alt="image-20210924095605057"></p>
 <p>Performance is mostly influenced by the slowest one.</p>
 <h3 id="RAID-2"><a href="#RAID-2" class="headerlink" title="RAID 2"></a>RAID 2</h3><p>Rarely used</p>
 <blockquote>
@@ -229,26 +227,26 @@
 <p>The requirement that all disks spin synchronously (in a <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Lockstep_(computing)">lockstep</a>) added design considerations that provided no significant advantages over other RAID levels. Both RAID 3 and RAID 4 were quickly replaced by RAID 5.[<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Standard_RAID_levels#cite_note-meyers-21">20]</a> RAID 3 was usually implemented in hardware, and the performance issues were addressed by using large disk caches.[<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Standard_RAID_levels#cite_note-marcus-19">18]</a></p>
 </blockquote>
 <h3 id="RAID-4"><a href="#RAID-4" class="headerlink" title="RAID 4"></a>RAID 4</h3><p>RAID 4 is not commonly used, data is striped and the records can be read from any disk, but write performance is not so good as random read performance.</p>
-<p><img src="../images/image-20210924100549215.png" alt="image-20210924100549215"></p>
+<p><img src="image-20210924100549215.png" alt="image-20210924100549215"></p>
 <p>The first 3 disks is RAID 0, Disk 4 serves as the parity disk having parity blocks Ap, Bp, Cp and Dp. So, if one of the disks fails, the data can be reconstructed using the parity information of that disk. </p>
 <p>The write performance is slow because it need to compute and write the parity information, this problem is solved in RAID 5.</p>
 <p>If Disk 4 fails, there would be no redundancy anymore</p>
 <h3 id="RAID-5"><a href="#RAID-5" class="headerlink" title="RAID 5"></a>RAID 5</h3><p>RAID 5 is like RAID 4, but the parity information is distributed across every disk.</p>
-<p><img src="../images/image-20210924100935448.png" alt="image-20210924100935448"></p>
+<p><img src="image-20210924100935448.png" alt="image-20210924100935448"></p>
 <ul>
 <li>Ads: more space than RAID 1, better write performance than RAID 4, better data redundancy</li>
 <li>Disads: Can only handle up to a single disk failure</li>
 </ul>
 <h3 id="RAID-6"><a href="#RAID-6" class="headerlink" title="RAID 6"></a>RAID 6</h3><p>RAID 6 uses double parity blocks to achieve better data redundancy than RAID 5. </p>
 <p>Each disk has two parity blocks which are stored on different disks across the array. RAID 6 is a very practical infrastructure for maintaining high availability systems.</p>
-<p><img src="../images/image-20210924101318439.png" alt="image-20210924101318439"></p>
+<p><img src="image-20210924101318439.png" alt="image-20210924101318439"></p>
 <ul>
 <li>Ads: better data redundancy, can handle up to 2 failed disks</li>
 <li>Disads: need more space for parity information</li>
 </ul>
 <h3 id="RAID-10-RAID-1-0"><a href="#RAID-10-RAID-1-0" class="headerlink" title="RAID 10 (RAID 1 + 0)"></a>RAID 10 (RAID 1 + 0)</h3><p>RAID 10 combines both RAID 1 and RAID 0 by layering them in opposite order.</p>
 <p>Combines the fast performance of RAID 0 and data redundancy of RAID 1</p>
-<p><img src="../images/image-20210924101635824.png" alt="image-20210924101635824"></p>
+<p><img src="image-20210924101635824.png" alt="image-20210924101635824"></p>
 <ul>
 <li>Disads: Cost per unit memory is high since data is mirrored</li>
 </ul>
@@ -263,7 +261,7 @@
 <p><strong>In addition, the file allocation tables and the root folder must be stored in a fixed location so that the files needed to start the system can be correctly located.</strong></p>
 </blockquote>
 <p>File Allocation Table, FAT12, FAT16 abd FAT32, originally from floppy disks.</p>
-<p><img src="../images/image-20210924102909328.png" alt="image-20210924102909328"></p>
+<p><img src="image-20210924102909328.png" alt="image-20210924102909328"></p>
 <table>
 <thead>
 <tr>
