@@ -20,17 +20,27 @@
     var CONFIG = {"hostname":"xunjieliu.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="How to install Ubuntu on a new machine">
+  <meta name="description" content="How to install Ubuntu on a new machineRequirements At least 25 GB free space for normal installation, or 8.6 GB for minimal installation 2 GHz dual core processor 4 GiB RAM (system memory) Remember">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Ubuntu installation guideline">
 <meta property="og:url" content="https://xunjieliu.github.io/2021/11/Ubuntu-installation-guideline/index.html">
 <meta property="og:site_name" content="Xunjie">
-<meta property="og:description" content="How to install Ubuntu on a new machine">
+<meta property="og:description" content="How to install Ubuntu on a new machineRequirements At least 25 GB free space for normal installation, or 8.6 GB for minimal installation 2 GHz dual core processor 4 GiB RAM (system memory) Remember">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://xunjieliu.github.io/2021/11/Ubuntu-installation-guideline/image-20211102174058332.png">
+<meta property="og:image" content="https://xunjieliu.github.io/2021/11/Ubuntu-installation-guideline/image-20211102174423838.png">
+<meta property="og:image" content="https://xunjieliu.github.io/2021/11/Ubuntu-installation-guideline/image-20211102174601101.png">
+<meta property="og:image" content="https://xunjieliu.github.io/2021/11/Ubuntu-installation-guideline/image-20211102174815264.png">
+<meta property="og:image" content="https://xunjieliu.github.io/2021/11/Ubuntu-installation-guideline/image-20211102180209282.png">
+<meta property="og:image" content="https://xunjieliu.github.io/2021/11/Ubuntu-installation-guideline/image-20211102180608202.png">
+<meta property="og:image" content="https://xunjieliu.github.io/2021/11/Ubuntu-installation-guideline/image-20211102180655592.png">
+<meta property="og:image" content="https://xunjieliu.github.io/2021/11/Ubuntu-installation-guideline/image-20211102180932335.png">
+<meta property="og:image" content="https://xunjieliu.github.io/2021/11/Ubuntu-installation-guideline/image-20211102181520686.png">
 <meta property="article:published_time" content="2021-11-02T07:06:50.000Z">
-<meta property="article:modified_time" content="2021-11-02T07:07:40.028Z">
+<meta property="article:modified_time" content="2021-11-02T10:15:51.688Z">
 <meta property="article:author" content="Xunjie Liu">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://xunjieliu.github.io/2021/11/Ubuntu-installation-guideline/image-20211102174058332.png">
 
 <link rel="canonical" href="https://xunjieliu.github.io/2021/11/Ubuntu-installation-guideline/">
 
@@ -174,7 +184,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2021-11-02 15:06:50 / Modified: 15:07:40" itemprop="dateCreated datePublished" datetime="2021-11-02T15:06:50+08:00">2021-11-02</time>
+              <time title="Created: 2021-11-02 15:06:50 / Modified: 18:15:51" itemprop="dateCreated datePublished" datetime="2021-11-02T15:06:50+08:00">2021-11-02</time>
             </span>
 
           
@@ -188,7 +198,73 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="How-to-install-Ubuntu-on-a-new-machine"><a href="#How-to-install-Ubuntu-on-a-new-machine" class="headerlink" title="How to install Ubuntu on a new machine"></a>How to install Ubuntu on a new machine</h1>
+        <span id="more"></span>
+
+<h1 id="How-to-install-Ubuntu-on-a-new-machine"><a href="#How-to-install-Ubuntu-on-a-new-machine" class="headerlink" title="How to install Ubuntu on a new machine"></a>How to install Ubuntu on a new machine</h1><h2 id="Requirements"><a href="#Requirements" class="headerlink" title="Requirements"></a>Requirements</h2><ul>
+<li>At least 25 GB free space for normal installation, or 8.6 GB for minimal installation</li>
+<li>2 GHz dual core processor</li>
+<li>4 GiB RAM (system memory)</li>
+<li>Remember to back your file on the installation disk</li>
+<li>Network, WiFi or Cable</li>
+</ul>
+<h2 id="Boot-from-external-drive"><a href="#Boot-from-external-drive" class="headerlink" title="Boot from external drive"></a>Boot from external drive</h2><p><code>del, F2, F12, esc</code> into BIOS panel, shortcuts are different according to different motherboard</p>
+<p>Choose your USB drive to boot</p>
+<h2 id="Installation"><a href="#Installation" class="headerlink" title="Installation"></a>Installation</h2><p>After booting from USB drive, choose <code>Install Ubuntu</code>, words like that</p>
+<p>Then you shall see this</p>
+<p><img src="/2021/11/Ubuntu-installation-guideline/image-20211102174058332.png" alt="image-20211102174058332"></p>
+<ol>
+<li>Choose minimal installation, to save time</li>
+<li>Do not choose <code>Download updates while installing Ubuntu</code>, this option would download and upgrade packages, which is slow</li>
+</ol>
+<p>Click <code>Continue</code>:</p>
+<p><img src="/2021/11/Ubuntu-installation-guideline/image-20211102174423838.png" alt="image-20211102174423838"></p>
+<p>Choose <code>Something else</code>, for custom disk allocation, you shall see something like this:</p>
+<p><img src="/2021/11/Ubuntu-installation-guideline/image-20211102174601101.png" alt="image-20211102174601101"></p>
+<p>Disk info could be different in this interface, according to your conditions</p>
+<p><img src="/2021/11/Ubuntu-installation-guideline/image-20211102174815264.png" alt="image-20211102174815264"></p>
+<ol>
+<li>Choose which disk you wanna place this Ubuntu</li>
+<li><code>free space</code> referers those space, has a partition table, but is not allocated to partitions</li>
+<li>If you cannot see <code>free space</code> under <code>/dev/sda</code>, click on the <code>dev/sda</code> first, then click on this button</li>
+<li>Once you have a <code>free space</code>, you can create new partitions in it, use plus button here to create, select specific partition and click minus button to delete</li>
+</ol>
+<p>Something you need to pay attention:</p>
+<ol>
+<li>Operations would not be executed, unless you press the <code>Install Now</code> button, so don’t be panic</li>
+<li>If your disk is not brand new, has something in it, remember to back it up before the installation</li>
+<li>If your disk is brand new, you need to use <code>New Partition Table</code> button to create <code>free space</code></li>
+<li>If your disk is not clean, click these partitions you wanna delete, then use button in 4 to delete it</li>
+<li>Then use button in 4 to create new partitions</li>
+<li>Normally, I would suggest 1 partition within one disk, and it is mounted in <code>/</code></li>
+<li>Windows file system format is <code>NTFS</code>, for Linux, <code>Ext4</code> is more common</li>
+</ol>
+<p>When you click plus button in place 4:</p>
+<p><img src="/2021/11/Ubuntu-installation-guideline/image-20211102180209282.png" alt="image-20211102180209282"></p>
+<ol>
+<li>The first <code>Size</code>, just keep it to default, because default would use every space for this partition, and that’s what I want</li>
+<li>Choose <code>Primary</code> for the type of the new partition</li>
+<li>Do nothing to the next option</li>
+<li>Choose <code>Ext4</code> as the file system format for the Ubuntu</li>
+<li>Mount point to <code>/</code>, means that every system files are under <code>/</code></li>
+<li>Click OK, do be panic, nothing is executed yet</li>
+</ol>
+<p>If you are pretty sure what you are doing, click <code>Install Now</code></p>
+<p>Make sure you know WHAT YOU ARE DOING</p>
+<p><img src="/2021/11/Ubuntu-installation-guideline/image-20211102180608202.png" alt="image-20211102180608202"></p>
+<p>Then select your current location, normally its Shanghai</p>
+<p><img src="/2021/11/Ubuntu-installation-guideline/image-20211102180655592.png" alt="image-20211102180655592"></p>
+<p>Some configuration</p>
+<p><img src="/2021/11/Ubuntu-installation-guideline/image-20211102180932335.png" alt="image-20211102180932335"></p>
+<p>Something I need to explain before you continue:</p>
+<ol>
+<li><code>Your name</code>: useless normally, displayed when you login, then useless, in most time</li>
+<li><code>Your computer&#39;s name</code>: important, displayed when you communicate to others internet, like SSH, Hostname etc.</li>
+<li><code>Pick a username</code>: YOUR NAME, a username for you</li>
+<li><code>Choose a password</code>: password</li>
+</ol>
+<p>Then continue, basically, its done</p>
+<p><img src="/2021/11/Ubuntu-installation-guideline/image-20211102181520686.png" alt="image-20211102181520686"></p>
+
     </div>
 
     
@@ -265,7 +341,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#How-to-install-Ubuntu-on-a-new-machine"><span class="nav-number">1.</span> <span class="nav-text">How to install Ubuntu on a new machine</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#How-to-install-Ubuntu-on-a-new-machine"><span class="nav-number">1.</span> <span class="nav-text">How to install Ubuntu on a new machine</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Requirements"><span class="nav-number">1.1.</span> <span class="nav-text">Requirements</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Boot-from-external-drive"><span class="nav-number">1.2.</span> <span class="nav-text">Boot from external drive</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Installation"><span class="nav-number">1.3.</span> <span class="nav-text">Installation</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
