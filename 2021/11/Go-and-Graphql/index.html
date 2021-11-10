@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"xunjieliu.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Go and Graphql开始使用Golang和Graphql开发后端之前，学习的一些基础概念需要记录下来，以备将来查询">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Go and Graphql">
+<meta property="og:url" content="https://xunjieliu.github.io/2021/11/Go-and-Graphql/index.html">
+<meta property="og:site_name" content="Xunjie">
+<meta property="og:description" content="Go and Graphql开始使用Golang和Graphql开发后端之前，学习的一些基础概念需要记录下来，以备将来查询">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-11-10T09:38:24.000Z">
+<meta property="article:modified_time" content="2021-11-10T09:38:54.081Z">
+<meta property="article:author" content="Xunjie Liu">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://xunjieliu.github.io/2021/11/Go-and-Graphql/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Go and Graphql | Xunjie</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Xunjie</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://xunjieliu.github.io/2021/11/Go-and-Graphql/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Xunjie Liu">
+      <meta itemprop="description" content="This description is for test">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xunjie">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Go and Graphql
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-11-10 17:38:24 / Modified: 17:38:54" itemprop="dateCreated datePublished" datetime="2021-11-10T17:38:24+08:00">2021-11-10</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Go-and-Graphql"><a href="#Go-and-Graphql" class="headerlink" title="Go and Graphql"></a>Go and Graphql</h1><p>开始使用Golang和Graphql开发后端之前，学习的一些基础概念需要记录下来，以备将来查询</p>
+<span id="more"></span>
+
+<h2 id="Code-first-or-schema-first"><a href="#Code-first-or-schema-first" class="headerlink" title="Code-first or schema-first"></a>Code-first or schema-first</h2><p>在Golang中开始使用Graphql之前，需要确定究竟是使用code-first还是schema-first，code-first的意思很容易，使用golang提供的<code>github.com/graphql-go/graphql</code>，从<code>structs</code>到<code>graphqlType</code>再到<code>field</code>和<code>schema</code>, 都需要自己编写，可以说所有的代码都由自己定义。</p>
+<p>在我的理解里，code-first大致分为这么几个步骤:</p>
+<ol>
+<li><p>设计你自己的<code>structs</code></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Tutorial <span class="keyword">struct</span> &#123;</span><br><span class="line">    Title    <span class="keyword">string</span></span><br><span class="line">    Author   Author</span><br><span class="line">    Comments []Comment</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>将这些<code>structs</code>转换为<code>graphql</code>能够识别的类型</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> tutorialType = graphql.NewObject(</span><br><span class="line">    graphql.ObjectConfig&#123;</span><br><span class="line">        Name: <span class="string">&quot;Tutorial&quot;</span>,</span><br><span class="line">        Fields: graphql.Fields&#123;</span><br><span class="line">            <span class="string">&quot;id&quot;</span>: &amp;graphql.Field&#123;</span><br><span class="line">                Type: graphql.Int,</span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="string">&quot;title&quot;</span>: &amp;graphql.Field&#123;</span><br><span class="line">                Type: graphql.String,</span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="string">&quot;author&quot;</span>: &amp;graphql.Field&#123;</span><br><span class="line">                <span class="comment">// here, we specify type as authorType</span></span><br><span class="line">                <span class="comment">// which we&#x27;ve already defined.</span></span><br><span class="line">                <span class="comment">// This is how we handle nested objects</span></span><br><span class="line">                Type: authorType,</span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="string">&quot;comments&quot;</span>: &amp;graphql.Field&#123;</span><br><span class="line">                Type: graphql.NewList(commentType),</span><br><span class="line">            &#125;,</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">)</span><br></pre></td></tr></table></figure></li>
+<li><p>In the type language, we’ll represent those with an exclamation mark.使用这些<code>graphql</code>可以识别的类型，更新并定义<code>graphql</code>操作，比如说Query, Mutation</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Schema</span></span><br><span class="line">fields := graphql.Fields&#123;</span><br><span class="line">    <span class="string">&quot;tutorial&quot;</span>: &amp;graphql.Field&#123;</span><br><span class="line">        Type:        tutorialType,</span><br><span class="line">        <span class="comment">// it&#x27;s good form to add a description</span></span><br><span class="line">        <span class="comment">// to each field.</span></span><br><span class="line">        Description: <span class="string">&quot;Get Tutorial By ID&quot;</span>,</span><br><span class="line">        <span class="comment">// We can define arguments that allow us to</span></span><br><span class="line">        <span class="comment">// pick specific tutorials. In this case</span></span><br><span class="line">        <span class="comment">// we want to be able to specify the ID of the</span></span><br><span class="line">        <span class="comment">// tutorial we want to retrieve</span></span><br><span class="line">        Args: graphql.FieldConfigArgument&#123;</span><br><span class="line">            <span class="string">&quot;id&quot;</span>: &amp;graphql.ArgumentConfig&#123;</span><br><span class="line">                Type: graphql.Int,</span><br><span class="line">            &#125;,</span><br><span class="line">        &#125;,</span><br><span class="line">        Resolve: <span class="function"><span class="keyword">func</span><span class="params">(p graphql.ResolveParams)</span> <span class="params">(<span class="keyword">interface</span>&#123;&#125;, error)</span></span> &#123;</span><br><span class="line">            <span class="comment">// take in the ID argument</span></span><br><span class="line">            id, ok := p.Args[<span class="string">&quot;id&quot;</span>].(<span class="keyword">int</span>)</span><br><span class="line">            <span class="keyword">if</span> ok &#123;</span><br><span class="line">                <span class="comment">// Parse our tutorial array for the matching id</span></span><br><span class="line">                <span class="keyword">for</span> _, tutorial := <span class="keyword">range</span> tutorials &#123;</span><br><span class="line">                    <span class="keyword">if</span> <span class="keyword">int</span>(tutorial.ID) == id &#123;</span><br><span class="line">                        <span class="comment">// return our tutorial</span></span><br><span class="line">                        <span class="keyword">return</span> tutorial, <span class="literal">nil</span></span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">nil</span>, <span class="literal">nil</span></span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// this is our `list` endpoint which will return all</span></span><br><span class="line">    <span class="comment">// tutorials available</span></span><br><span class="line">    <span class="string">&quot;list&quot;</span>: &amp;graphql.Field&#123;</span><br><span class="line">        Type:        graphql.NewList(tutorialType),</span><br><span class="line">        Description: <span class="string">&quot;Get Tutorial List&quot;</span>,</span><br><span class="line">        Resolve: <span class="function"><span class="keyword">func</span><span class="params">(params graphql.ResolveParams)</span> <span class="params">(<span class="keyword">interface</span>&#123;&#125;, error)</span></span> &#123;</span><br><span class="line">            <span class="keyword">return</span> tutorials, <span class="literal">nil</span></span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>创建server, 执行查询</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">rootQuery := graphql.ObjectConfig&#123;Name: <span class="string">&quot;RootQuery&quot;</span>, Fields: fields&#125;</span><br><span class="line">schemaConfig := graphql.SchemaConfig&#123;Query: graphql.NewObject(rootQuery)&#125;</span><br><span class="line">schema, err := graphql.NewSchema(schemaConfig)</span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">    log.Fatalf(<span class="string">&quot;failed to create new schema, error: %v&quot;</span>, err)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// QueryIn the type language, we&#x27;ll represent those with an exclamation mark.</span></span><br><span class="line">query := <span class="string">`</span></span><br><span class="line"><span class="string">    &#123;</span></span><br><span class="line"><span class="string">        list &#123;</span></span><br><span class="line"><span class="string">            id</span></span><br><span class="line"><span class="string">            title</span></span><br><span class="line"><span class="string">            comments &#123;</span></span><br><span class="line"><span class="string">                body</span></span><br><span class="line"><span class="string">            &#125;</span></span><br><span class="line"><span class="string">            author &#123;</span></span><br><span class="line"><span class="string">                Name</span></span><br><span class="line"><span class="string">                Tutorials</span></span><br><span class="line"><span class="string">            &#125;</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">    &#125;In the type language, we&#x27;ll represent those with an exclamation mark.</span></span><br><span class="line"><span class="string">`</span></span><br><span class="line">params := graphql.Params&#123;Schema: schema, RequestString: query&#125;</span><br><span class="line">r := graphql.Do(params)</span><br><span class="line"><span class="keyword">if</span> <span class="built_in">len</span>(r.Errors) &gt; <span class="number">0</span> &#123;</span><br><span class="line">    log.Fatalf(<span class="string">&quot;failed to execute graphql operation, errors: %+v&quot;</span>, r.Errors)</span><br><span class="line">&#125;</span><br><span class="line">rJSON, _ := json.Marshal(r)</span><br><span class="line">fmt.Printf(<span class="string">&quot;%s \n&quot;</span>, rJSON) <span class="comment">// &#123;&quot;data&quot;:&#123;&quot;list&quot;:[&#123;&quot;author&quot;:&#123;&quot;Name&quot;:&quot;Elliot Forbes&quot;,&quot;Tutorials&quot;:[1]&#125;,&quot;comments&quot;:[&#123;&quot;body&quot;:&quot;First Comment&quot;&#125;],&quot;id&quot;:1,&quot;title&quot;:&quot;Go GraphQL Tutorial&quot;&#125;]&#125;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>可以注意的到的是，将Go里的<code>structs</code>映射到<code>graphql</code>的过程完全是可以自动化的，因此就有了schema-first的概念，也就是专注与设计schema，而忽略转换过程。Schema-first是被Apollo GraphQL推荐的方式。</p>
+</li>
+</ol>
+<h2 id="Schema-first-and-gqlgen"><a href="#Schema-first-and-gqlgen" class="headerlink" title="Schema-first and gqlgen"></a>Schema-first and gqlgen</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/99designs/gqlgen">gqlgen</a> is a Go library for building GraphQL servers without any fuss.</p>
+<ul>
+<li><strong>gqlgen is based on a Schema first approach</strong> — You gIn the type language, we’ll represent those with an exclamation mark.et to Define your API using the GraphQL <a target="_blank" rel="noopener" href="http://graphql.org/learn/schema/">Schema Definition Language</a>.</li>
+<li><strong>gqlgen prioritizes Type safety</strong> — You should never see <code>map[string]interface&#123;&#125;</code> here.</li>
+<li><strong>gqlgen enables Codegen</strong> — We generate the boring bits, so you can focus on building your app quickly.</li>
+</ul>
+</blockquote>
+<p>简而言之，gqlgen自动化了生成对象的过程</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">go mod init github.com/[username]/gqlgen-todos</span><br><span class="line">go get github.com/99designs/gqlgen</span><br><span class="line">go run github.com/99designs/gqlgen init</span><br></pre></td></tr></table></figure>
+
+<p>生成了以下文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">├── go.mod</span><br><span class="line">├── go.sum</span><br><span class="line">├── gqlgen.yml               - The gqlgen config file, knobs for controlling the generated code.</span><br><span class="line">├── graph</span><br><span class="line">│   ├── generated            - A package that only contains the generated runtime</span><br><span class="line">│   │   └── generated.go</span><br><span class="line">│   ├── model                - A package for all your graph models, generated or otherwise</span><br><span class="line">│   │   └── models_gen.go</span><br><span class="line">│   ├── resolver.go          - The root graph resolver type. This file wont get regenerated</span><br><span class="line">│   ├── schema.graphqls      - Some schema. You can split the schema into as many graphql files as you like</span><br><span class="line">│   └── schema.resolvers.go  - the resolver implementation for schema.graphql</span><br><span class="line">└── server.go                - The entry point to your app. Customize it however you see fit</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>generated</code> and <code>model</code>: 完全是自动生成的，不用动</li>
+<li><code>resolver.go</code>: 相当与接口，定义方法头</li>
+<li><code>schema.graphqls</code>: 实际使用的<code>schema</code></li>
+<li><code>schema.resolvers.go</code>: <code>resolver.go</code>的实现</li>
+</ul>
+<h2 id="Schema-Definition-Language"><a href="#Schema-Definition-Language" class="headerlink" title="Schema Definition Language"></a>Schema Definition Language</h2><h3 id="Object-types-and-fields"><a href="#Object-types-and-fields" class="headerlink" title="Object types and fields"></a>Object types and fields</h3><p>It’s a type language</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Character &#123;</span><br><span class="line">  name: String!</span><br><span class="line">  appearsIn: [Episode!]!</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>Character</code> is a <em>GraphQL Object Type</em></li>
+<li><code>name</code> and <code>appearsIn</code> are <em>fields</em> on the <code>Character</code> type. </li>
+<li><code>String</code> is one of the built-in <em>scalar</em> types - these are types that resolve to a single scalar object, and can’t have sub-selections in the query. </li>
+<li><code>String!</code> means that the field is <em>non-nullable</em>, meaning that the GraphQL service promises to always give you a value when you query this field. </li>
+<li><code>[Episode!]!</code> represents an <em>array</em> of <code>Episode</code> objects. Since it is also <em>non-nullable</em>, you can always expect an array (with zero or more items) when you query the <code>appearsIn</code> field. And since <code>Episode!</code> is also <em>non-nullable</em>, you can always expect every item of the array to be an <code>Episode</code> object.</li>
+</ul>
+<h3 id="Arguments"><a href="#Arguments" class="headerlink" title="Arguments"></a>Arguments</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Starship &#123;</span><br><span class="line">  id: ID!</span><br><span class="line">  name: String!</span><br><span class="line">  length(unit: LengthUnit = METER): Float</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>The <code>length</code> field has one defined argument, <code>unit</code>.</p>
+<p>Arguments can be either required or optional. When an argument is optional, we can define a <em>default value</em> - if the <code>unit</code> argument is not passed, it will be set to <code>METER</code> by default.</p>
+<h3 id="Query-and-Mutation-types"><a href="#Query-and-Mutation-types" class="headerlink" title="Query and Mutation types"></a>Query and Mutation types</h3><p>to be continued</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/11/Go-mod-notes/" rel="prev" title="Go mod notes">
+      <i class="fa fa-chevron-left"></i> Go mod notes
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Go-and-Graphql"><span class="nav-number">1.</span> <span class="nav-text">Go and Graphql</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Code-first-or-schema-first"><span class="nav-number">1.1.</span> <span class="nav-text">Code-first or schema-first</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Schema-first-and-gqlgen"><span class="nav-number">1.2.</span> <span class="nav-text">Schema-first and gqlgen</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Schema-Definition-Language"><span class="nav-number">1.3.</span> <span class="nav-text">Schema Definition Language</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Object-types-and-fields"><span class="nav-number">1.3.1.</span> <span class="nav-text">Object types and fields</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Arguments"><span class="nav-number">1.3.2.</span> <span class="nav-text">Arguments</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Query-and-Mutation-types"><span class="nav-number">1.3.3.</span> <span class="nav-text">Query and Mutation types</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Xunjie Liu</p>
+  <div class="site-description" itemprop="description">This description is for test</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/XunjieLiu" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;XunjieLiu" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xunjieliu97@gmail.com" title="E-Mail → mailto:xunjieliu97@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xunjie Liu</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

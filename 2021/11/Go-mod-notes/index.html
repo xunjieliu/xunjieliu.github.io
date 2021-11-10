@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"xunjieliu.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Go modGo mod is a dependency solution for the Go language. Go真的好年轻啊。。。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Go mod notes">
+<meta property="og:url" content="https://xunjieliu.github.io/2021/11/Go-mod-notes/index.html">
+<meta property="og:site_name" content="Xunjie">
+<meta property="og:description" content="Go modGo mod is a dependency solution for the Go language. Go真的好年轻啊。。。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-11-10T09:37:00.000Z">
+<meta property="article:modified_time" content="2021-11-10T09:37:48.186Z">
+<meta property="article:author" content="Xunjie Liu">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://xunjieliu.github.io/2021/11/Go-mod-notes/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Go mod notes | Xunjie</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Xunjie</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://xunjieliu.github.io/2021/11/Go-mod-notes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Xunjie Liu">
+      <meta itemprop="description" content="This description is for test">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xunjie">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Go mod notes
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-11-10 17:37:00 / Modified: 17:37:48" itemprop="dateCreated datePublished" datetime="2021-11-10T17:37:00+08:00">2021-11-10</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Go-mod"><a href="#Go-mod" class="headerlink" title="Go mod"></a>Go mod</h1><p>Go mod is a dependency solution for the Go language.</p>
+<p>Go真的好年轻啊。。。</p>
+<span id="more"></span>
+
+<h2 id="About-GOPATH"><a href="#About-GOPATH" class="headerlink" title="About GOPATH"></a>About GOPATH</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">❯ echo $GOPATH</span><br><span class="line">/home/xunjie/go</span><br><span class="line">❯ cd $GOPATH</span><br><span class="line">❯ tree -L 2</span><br><span class="line">.</span><br><span class="line">├── bin</span><br><span class="line">│   ├── awesomeProject</span><br><span class="line">│   ├── gqlgen</span><br><span class="line">│   ├── hello</span><br><span class="line">│   └── main</span><br><span class="line">└── pkg</span><br><span class="line">    ├── mod</span><br><span class="line">    └── sumdb</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>/bin</code>:  Stores the compiled binary files.</li>
+</ul>
+<p>Therefore, when using GOPATH mode, we need to store the application code in a fixed <code>$ GOPATH / src</code> directory, and if you execute<code> go get</code> to pull external dependencies, it will be downloaded and installed automatically in the <code>$ GOPATH</code> directory.</p>
+<h2 id="Why-deprecate-GOPATH-mode"><a href="#Why-deprecate-GOPATH-mode" class="headerlink" title="Why deprecate GOPATH mode"></a>Why deprecate GOPATH mode</h2><p>No version control in <code>GOPATH</code> mode, this mode is bullshit</p>
+<p><code>Go1</code> was released on March 28, 2012, and <code>Go1.11</code> was officially released on August 25, 2018.</p>
+<p>No version control or dependencies management during this period, third party dependency solutions such as <code>vendor</code>, or <code>dep</code> are introduced, but no one is official</p>
+<h2 id="Basic-use-of-Go-mod"><a href="#Basic-use-of-Go-mod" class="headerlink" title="Basic use of Go mod"></a>Basic use of Go mod</h2><table>
+<thead>
+<tr>
+<th align="left">command</th>
+<th align="left">function</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">go mod init</td>
+<td align="left">initialize new module in current directory</td>
+</tr>
+<tr>
+<td align="left">go mod download</td>
+<td align="left">download mod to local cache</td>
+</tr>
+<tr>
+<td align="left">go mod tidy</td>
+<td align="left">add missing and remove unused mod</td>
+</tr>
+<tr>
+<td align="left">go mod graph</td>
+<td align="left">print module requirement graph</td>
+</tr>
+<tr>
+<td align="left">go mod edit</td>
+<td align="left">edit go.mod from tools or scripts</td>
+</tr>
+<tr>
+<td align="left">go mod vendor</td>
+<td align="left">make vendored copy of dependencies</td>
+</tr>
+<tr>
+<td align="left">go mod verify</td>
+<td align="left">verify dependencies have expected content</td>
+</tr>
+<tr>
+<td align="left">go mod why</td>
+<td align="left">explain why packages or mod are needed</td>
+</tr>
+</tbody></table>
+<h3 id="System-variables"><a href="#System-variables" class="headerlink" title="System variables"></a>System variables</h3><p><code>GO111MODULE</code>: a switch for Go mod, allows setting the following parameters:</p>
+<ul>
+<li><code>-auto</code>: Enable Go mod as long as the project includes a go.mod file. Currently it is still the default in <code>Go1.11</code> to <code>Go1.14</code>.</li>
+<li><code>-on</code>: Enable Go mod</li>
+<li><code>-off</code>: Disable Go mod, not recommended</li>
+</ul>
+<p>The name <code>GO111MODULE</code> represents the variables added to Go in 1.11 for Module. <code>GO15VENDOREXPERIMENT</code>, in the Go 1.5 version this system variable was introduced, which is used to enable support for the vendor directory. </p>
+<p>Google命名也太傻逼了</p>
+<blockquote>
+<p>In the future, GO111MODULE, a system environment variable, will also face this problem. It will also be adjusted to the default value of on. ), Then remove the support of GO111MODULE, we guess that GO111MODULE should be removed in Go2, because if you remove the support of GO111MODULE directly, there will be compatibility problems.</p>
+</blockquote>
+<p>真的太年轻了</p>
+<p><code>GOPROXY</code>: Enable Go to pull the module version from the traditional VCS method and pull directly through the mirror site.</p>
+<ul>
+<li><p>Default to <code>https://proxy.golang.org,direct</code>, which is not accessible in China</p>
+</li>
+<li><p>Change to this</p>
+<p><code>go env -w GOPROXY=https://goproxy.cn,direct</code></p>
+</li>
+<li><p><code>direct</code>: When the last Go module proxy in the value list returns a 404 or 410 error , Go automatically tries the next one in the list. When it encounters “direct”, it goes back to the source, that is, it goes back to the source address to grab. When it encounters EOF, it terminates and throws an error like “invalid version: unknown revision …”</p>
+</li>
+</ul>
+<p><code>GOSUMDB</code>: Go checksum database, ensuring that the module version data that has been pulled has not been tampered with when pulling module versions</p>
+<ul>
+<li>Default to <code>sum.golang.org</code>, also not accessible in China</li>
+<li>But <code>GOSUMDB</code> can be proxied by the Go module proxy</li>
+</ul>
+<p><code>GONOPROXY/GONOSUMDB/GOPRIVATE</code>: These three environment variables are used in current projects that <strong>rely on private mod</strong>, such as your company’s private git repository, or private libraries in github, which are all private mod and must be set. Pull failed. 感觉我暂时用不到。。。</p>
+<h2 id="Open-Go-mod"><a href="#Open-Go-mod" class="headerlink" title="Open Go mod"></a>Open Go mod</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd ~/Projects/Go-test</span><br><span class="line">go mod init github.com/XunjieLiu/Go-test</span><br></pre></td></tr></table></figure>
+
+<p>When executing the <code>go mod init</code> command, we specified the module import path as<code> github.com/XunjieLiu/Go-test</code>. </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">❯ go get github.com/google/uuid</span><br><span class="line">go get: added github.com/google/uuid v1.3.0</span><br></pre></td></tr></table></figure>
+
+<p>This package would be written into <code>go.mod</code></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">module github.com/XunjieLiu/Go-test</span><br><span class="line"></span><br><span class="line"><span class="keyword">go</span> <span class="number">1.17</span></span><br><span class="line"></span><br><span class="line">require github.com/google/uuid v1<span class="number">.3</span><span class="number">.0</span> <span class="comment">// indirect</span></span><br></pre></td></tr></table></figure>
+
+<p>When the project is initialized, a go.mod file is generated, which is the most important identifier necessary for the Go mod project to be enabled.</p>
+<p>It describes the current project (that is, the current module). Meta information, each line starts with a verb.</p>
+<p>Another more detailed <code>go.mod</code> example:</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">module github.com/eddycjy/module-repo</span><br><span class="line"></span><br><span class="line"><span class="keyword">go</span> <span class="number">1.13</span></span><br><span class="line"></span><br><span class="line">require (</span><br><span class="line">    example.com/apple v0<span class="number">.1</span><span class="number">.2</span></span><br><span class="line">    example.com/banana v1<span class="number">.2</span><span class="number">.3</span></span><br><span class="line">    example.com/banana/v2 v2<span class="number">.3</span><span class="number">.4</span></span><br><span class="line">    example.com/pear <span class="comment">// indirect</span></span><br><span class="line">    example.com/strawberry <span class="comment">// incompatible</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">exclude example.com/banana v1<span class="number">.2</span><span class="number">.4</span></span><br><span class="line">replace example.com/apple v0<span class="number">.1</span><span class="number">.2</span> =&gt; example.com/fried v0<span class="number">.1</span><span class="number">.0</span> </span><br><span class="line">replace example.com/banana =&gt; example.com/fish</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>module: used to define the module path of the current project.</li>
+<li>go: It is used to identify the Go language version of the current module. The value is the version when the module was initialized. At present, it is only an identification function.</li>
+<li>require: used to set a specific module version.</li>
+<li>exclude: Used to exclude a specific module version from use.</li>
+<li>replace: Used to replace one module version with another module version.</li>
+</ul>
+<p><code>indirect</code> means that there is no reference or use of this package.</p>
+<h3 id="Global-cache"><a href="#Global-cache" class="headerlink" title="Global cache"></a>Global cache</h3><p>I just download <code>github.com/google/uuid</code>, and the results of the pull are cached in the <code>$GOPATH/pkg/mod</code> and <code>$GOPATH/pkg/sumdb</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">❯ tree -L 2</span><br><span class="line">.</span><br><span class="line">├── mod</span><br><span class="line">│   ├── cache</span><br><span class="line">│   ├── github.com</span><br><span class="line">│   ├── golang.org</span><br><span class="line">│   ├── go.mongodb.org</span><br><span class="line">│   └── gopkg.in</span><br><span class="line">└── sumdb</span><br><span class="line">    └── sum.golang.org</span><br></pre></td></tr></table></figure>
+
+<p>It should be noted that only one copy of the data of the same module version is cached, and all other mod are shared and used. If you want to clean up all cached module version data, you can execute the <code>go clean -modcache</code> command.</p>
+<h2 id="Go-get-behavior-under-Go-mod"><a href="#Go-get-behavior-under-Go-mod" class="headerlink" title="Go get behavior under Go mod"></a>Go get behavior under Go mod</h2><p>When pulling project dependencies, you will find that the pulling process is divided into three major steps:</p>
+<ol>
+<li>Finding</li>
+<li>Downloading</li>
+<li>Extracting</li>
+</ol>
+<p>Here is a piece of the pulling information:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">v0.0.0-20200220041913-e066a990ce6f</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>v0.0.0</code>: version info</li>
+<li><code>20200220041913</code>: commit time of this version</li>
+<li><code>e066a990ce6f</code>: hash value of this commit</li>
+</ul>
+<p>To be continued</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/11/Golang-code-review-best-practice-notes/" rel="prev" title="Golang code review/best practice notes">
+      <i class="fa fa-chevron-left"></i> Golang code review/best practice notes
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/11/Go-and-Graphql/" rel="next" title="Go and Graphql">
+      Go and Graphql <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Go-mod"><span class="nav-number">1.</span> <span class="nav-text">Go mod</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#About-GOPATH"><span class="nav-number">1.1.</span> <span class="nav-text">About GOPATH</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Why-deprecate-GOPATH-mode"><span class="nav-number">1.2.</span> <span class="nav-text">Why deprecate GOPATH mode</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Basic-use-of-Go-mod"><span class="nav-number">1.3.</span> <span class="nav-text">Basic use of Go mod</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#System-variables"><span class="nav-number">1.3.1.</span> <span class="nav-text">System variables</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Open-Go-mod"><span class="nav-number">1.4.</span> <span class="nav-text">Open Go mod</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Global-cache"><span class="nav-number">1.4.1.</span> <span class="nav-text">Global cache</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Go-get-behavior-under-Go-mod"><span class="nav-number">1.5.</span> <span class="nav-text">Go get behavior under Go mod</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Xunjie Liu</p>
+  <div class="site-description" itemprop="description">This description is for test</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/XunjieLiu" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;XunjieLiu" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xunjieliu97@gmail.com" title="E-Mail → mailto:xunjieliu97@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xunjie Liu</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
