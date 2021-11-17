@@ -27,10 +27,29 @@
 <meta property="og:site_name" content="Xunjie">
 <meta property="og:description" content="Go and Graphql开始使用Golang和Graphql开发后端之前，学习的一些基础概念需要记录下来，以备将来查询">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://xunjieliu.github.io/2021/11/images/image-20211117112113558.png">
+<meta property="og:image" content="https://xunjieliu.github.io/2021/11/images/image-20211117112834619.png">
+<meta property="og:image" content="https://xunjieliu.github.io/2021/11/images/image-20211117133303778.png">
+<meta property="og:image" content="https://xunjieliu.github.io/2021/11/images/image-20211117133322596.png">
+<meta property="og:image" content="https://xunjieliu.github.io/2021/11/images/image-20211117133729156.png">
+<meta property="og:image" content="https://xunjieliu.github.io/2021/11/images/image-20211117134552592.png">
+<meta property="og:image" content="https://xunjieliu.github.io/2021/11/images/image-20211117134725868.png">
+<meta property="og:image" content="https://xunjieliu.github.io/2021/11/images/image-20211117135046307.png">
+<meta property="og:image" content="https://xunjieliu.github.io/2021/11/images/image-20211117135250684.png">
+<meta property="og:image" content="https://xunjieliu.github.io/2021/11/images/image-20211117135411973.png">
+<meta property="og:image" content="https://xunjieliu.github.io/2021/11/images/image-20211117135530120.png">
+<meta property="og:image" content="https://xunjieliu.github.io/2021/11/images/image-20211117135614615.png">
+<meta property="og:image" content="https://xunjieliu.github.io/2021/11/images/image-20211117135703278.png">
+<meta property="og:image" content="https://xunjieliu.github.io/2021/11/images/image-20211117140137146.png">
+<meta property="og:image" content="https://xunjieliu.github.io/2021/11/images/image-20211117140313492.png">
+<meta property="og:image" content="https://xunjieliu.github.io/2021/11/images/image-20211117140518130.png">
+<meta property="og:image" content="https://xunjieliu.github.io/2021/11/images/image-20211117141056080.png">
+<meta property="og:image" content="https://xunjieliu.github.io/2021/11/images/image-20211117141440744.png">
 <meta property="article:published_time" content="2021-11-10T09:38:24.000Z">
-<meta property="article:modified_time" content="2021-11-10T09:38:54.081Z">
+<meta property="article:modified_time" content="2021-11-17T06:57:10.024Z">
 <meta property="article:author" content="Xunjie Liu">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://xunjieliu.github.io/2021/11/images/image-20211117112113558.png">
 
 <link rel="canonical" href="https://xunjieliu.github.io/2021/11/Go-and-Graphql/">
 
@@ -172,10 +191,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2021-11-10 17:38:24 / Modified: 17:38:54" itemprop="dateCreated datePublished" datetime="2021-11-10T17:38:24+08:00">2021-11-10</time>
+              <time title="Created: 2021-11-10 17:38:24" itemprop="dateCreated datePublished" datetime="2021-11-10T17:38:24+08:00">2021-11-10</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-11-17 14:57:10" itemprop="dateModified" datetime="2021-11-17T14:57:10+08:00">2021-11-17</time>
+              </span>
 
           
 
@@ -240,7 +265,93 @@
 
 <p>The <code>length</code> field has one defined argument, <code>unit</code>.</p>
 <p>Arguments can be either required or optional. When an argument is optional, we can define a <em>default value</em> - if the <code>unit</code> argument is not passed, it will be set to <code>METER</code> by default.</p>
-<h3 id="Query-and-Mutation-types"><a href="#Query-and-Mutation-types" class="headerlink" title="Query and Mutation types"></a>Query and Mutation types</h3><p>to be continued</p>
+<h3 id="Query-and-Mutation-types"><a href="#Query-and-Mutation-types" class="headerlink" title="Query and Mutation types"></a>Query and Mutation types</h3><p><code>query</code> and <code>mutation</code> define the entry point of every GraphQL query</p>
+<p><img src="../images/image-20211117112113558.png" alt="image-20211117112113558"></p>
+<p>为了让query语句能成功访问到右边的数据，需要定义一个<code>Query</code>类型，用来实现这个中间过程</p>
+<p><img src="../images/image-20211117112834619.png" alt="image-20211117112834619"></p>
+<p><code>droid(id: ID!): Droid</code>类似与函数的定义和返回值， <code>Mutation</code> 类似</p>
+<h3 id="Scalar-types"><a href="#Scalar-types" class="headerlink" title="Scalar types"></a>Scalar types</h3><blockquote>
+<p>The <strong>leaf nodes</strong> of the graphql type system are called scalars. Once you reach a scalar type you cannot descend down any further into the type hierarchy. A scalar type is meant to represent an indivisible value.</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">type Character &#123;</span><br><span class="line">  name: String!</span><br><span class="line">  appearsIn: [Episode!]!</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>String</code>是一种scalar types， scalar types说白了就是基本类型，类似与Java里面的基本类型，所谓的<code>types</code>与<code>scalar types</code>的关系就类似与Java里面的基础数据类型和<code>class</code>, 也就是<code>int</code>和<code>Integer</code>的区别</p>
+<ul>
+<li><code>Int</code>: Signed 32-bit integer</li>
+<li><code>Float</code>: Signed double precision floating-point value</li>
+<li><code>String</code>: UTF-8</li>
+<li><code>Boolean</code>: <code>true</code> or <code>false</code></li>
+<li><code>ID</code>: Unique identifier, acts like <code>String</code></li>
+</ul>
+<p>Scalar types can be customized</p>
+<h3 id="Enumeration-types"><a href="#Enumeration-types" class="headerlink" title="Enumeration types"></a>Enumeration types</h3><p><code>Enums</code> </p>
+<ol>
+<li>验证任意输入值是一个合法的值</li>
+<li>保证某一个field一直是个有限集</li>
+</ol>
+<p>这不是集合或者是列表</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">enum Episode &#123;</span><br><span class="line">  NEWHOPE</span><br><span class="line">  EMPIRE</span><br><span class="line">  JEDI</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>This means that wherever we use the type <code>Episode</code> in our schema, we expect it to be exactly one of <code>NEWHOPE</code>, <code>EMPIRE</code>, or <code>JEDI</code>.</p>
+</blockquote>
+<h3 id="Lists-and-Non-null"><a href="#Lists-and-Non-null" class="headerlink" title="Lists and Non-null"></a>Lists and Non-null</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">myField: [String!]</span><br></pre></td></tr></table></figure>
+
+<p>上面这个例子，集合本身可以是空的，但是集合元素不可以是空的</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">myField: null // error</span><br><span class="line">myField: [] // valid</span><br><span class="line">myField: [&#x27;a&#x27;, &#x27;b&#x27;] // valid</span><br><span class="line">myField: [&#x27;a&#x27;, null, &#x27;b&#x27;] // valid</span><br></pre></td></tr></table></figure>
+
+<h3 id="Interfaces"><a href="#Interfaces" class="headerlink" title="Interfaces"></a>Interfaces</h3><p>接口，也就是说Graphql的types支持继承和多态</p>
+<p><img src="../images/image-20211117133303778.png" alt="image-20211117133303778"></p>
+<p><img src="../images/image-20211117133322596.png" alt="image-20211117133322596"></p>
+<p>上面这个例子，<code>Human</code>和<code>Droid</code>继承了<code>Character</code>接口，分别添加了自己的自定义属性，分别是<code>totalCredits</code>和<code>primaryFunction</code>, 也就是说现在有两种<code>Character</code>可以被检索，<code>Query</code>的编写可以同时包含<code>Character</code>的元素也可以是自定义元素</p>
+<p><img src="../images/image-20211117133729156.png" alt="image-20211117133729156"></p>
+<p>之所以<code>query</code>里面，获取<code>primaryFunction</code>的方式不是直接写<code>primaryFunction</code>，像<code>name</code>一样，是因为<code>Human</code>类型并没有<code>primaryFunction</code>这个属性，因此需要强调是<code>Droid</code>类型，这就完成了类似与多态的效果，体现在右边的结果上面。</p>
+<h3 id="Union-types"><a href="#Union-types" class="headerlink" title="Union types"></a>Union types</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">union SearchResult = Human | Droid | Starship</span><br></pre></td></tr></table></figure>
+
+<p>返回值是<code>SearchResult</code>的时候，结果值可能是<code>Human, Droid, Starship</code>其中任意一个</p>
+<p>如果检索的的field返回的类型是<code>SearchResult</code>, 那么需要在写resolver的时候将每种可能的返回类型需要的值写出来：</p>
+<p><img src="../images/image-20211117134552592.png" alt="image-20211117134552592"></p>
+<p>以上例子，就需要在<code>search</code>里面定义，当收到的<code>SearchResult</code>是<code>Human</code>类型的时候，要的是什么，以此类推。</p>
+<p>除此之外，因为<code>name</code>是所有实现了<code>Character</code>的类型共有的，因此可以定义如下</p>
+<p><img src="../images/image-20211117134725868.png" alt="image-20211117134725868"></p>
+<p>更加简洁一些。</p>
+<h3 id="Input-types"><a href="#Input-types" class="headerlink" title="Input types"></a>Input types</h3><p>输入类型也可以自定义，也就是说输入类型不一定要是单一值，也可以是预定义好的类型：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">input ReviewInput &#123;</span><br><span class="line">  stars: Int!image-20211117135046307</span><br><span class="line">  commentary: String</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="../images/image-20211117135046307.png" alt="image-20211117135046307"></p>
+<h2 id="Queries-and-Mutations"><a href="#Queries-and-Mutations" class="headerlink" title="Queries and Mutations"></a>Queries and Mutations</h2><h3 id="Fields"><a href="#Fields" class="headerlink" title="Fields"></a>Fields</h3><p>最基础的用法，GraphQL支持直接检索某一个对象的具体field</p>
+<p><img src="../images/image-20211117135250684.png" alt="image-20211117135250684"></p>
+<p>同样的，支持子查询，跟MongoDB的语法，不能说完全相同，只能说一模一样</p>
+<p><img src="../images/image-20211117135411973.png" alt="image-20211117135411973"></p>
+<h3 id="Arguments-1"><a href="#Arguments-1" class="headerlink" title="Arguments"></a>Arguments</h3><p>带参数检索</p>
+<p><img src="../images/image-20211117135530120.png" alt="image-20211117135530120"></p>
+<p>你甚至可以在参数里面设定返回的值应该长什么样子，而不需要自己去处理</p>
+<p><img src="../images/image-20211117135614615.png" alt="image-20211117135614615"></p>
+<h3 id="Alias"><a href="#Alias" class="headerlink" title="Alias"></a>Alias</h3><p>与MySQL类似，支持别名</p>
+<p><img src="../images/image-20211117135703278.png" alt="image-20211117135703278"></p>
+<h3 id="Fragments"><a href="#Fragments" class="headerlink" title="Fragments"></a>Fragments</h3><p>太草了，GraphQL还支持代码复用</p>
+<p><img src="../images/image-20211117140137146.png" alt="image-20211117140137146"></p>
+<p>左边的<code>leftComparison</code>和<code>rightComparison</code>复用了<code>comparisonField</code>这个<code>fragment</code></p>
+<p>你甚至可以像写函数一样写<code>fragment</code></p>
+<p><img src="../images/image-20211117140313492.png" alt="image-20211117140313492"></p>
+<h3 id="Operation-name"><a href="#Operation-name" class="headerlink" title="Operation name"></a>Operation name</h3><p>将<code>query</code>或者是<code>mutation</code>添加一个名字，提高代码可读性：</p>
+<p><img src="../images/image-20211117140518130.png" alt="image-20211117140518130"></p>
+<h3 id="Variables"><a href="#Variables" class="headerlink" title="Variables"></a>Variables</h3><ol>
+<li>替换我们想要的静态变量为<code>$variableName</code></li>
+<li>将<code>$variableName</code>声明为<code>query</code>接受的参数之一</li>
+<li>将<code>variableName: value</code>放在类似与<code>JSON</code>的数据结构里面</li>
+</ol>
+<p><img src="../images/image-20211117141056080.png" alt="image-20211117141056080"></p>
+<h3 id="Driectives"><a href="#Driectives" class="headerlink" title="Driectives"></a>Driectives</h3><p>草，怎么还支持逻辑判断的，GraphQL使用Directives实现动态结构查询</p>
+<p><img src="../images/image-20211117141440744.png" alt="image-20211117141440744"></p>
+<blockquote>
+<p>A directive can be attached to a field or fragment inclusion, and can affect execution of the query in any way the server desires.</p>
+</blockquote>
+<ul>
+<li><code>@include(if: Boolean)</code>: include fields if pass</li>
+<li><code>@skip(if: Boolean)</code>: skip fields if pass</li>
+</ul>
+<h3 id="Mutation"><a href="#Mutation" class="headerlink" title="Mutation"></a>Mutation</h3><p>TBD</p>
 
     </div>
 
@@ -321,7 +432,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Go-and-Graphql"><span class="nav-number">1.</span> <span class="nav-text">Go and Graphql</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Code-first-or-schema-first"><span class="nav-number">1.1.</span> <span class="nav-text">Code-first or schema-first</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Schema-first-and-gqlgen"><span class="nav-number">1.2.</span> <span class="nav-text">Schema-first and gqlgen</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Schema-Definition-Language"><span class="nav-number">1.3.</span> <span class="nav-text">Schema Definition Language</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Object-types-and-fields"><span class="nav-number">1.3.1.</span> <span class="nav-text">Object types and fields</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Arguments"><span class="nav-number">1.3.2.</span> <span class="nav-text">Arguments</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Query-and-Mutation-types"><span class="nav-number">1.3.3.</span> <span class="nav-text">Query and Mutation types</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Go-and-Graphql"><span class="nav-number">1.</span> <span class="nav-text">Go and Graphql</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Code-first-or-schema-first"><span class="nav-number">1.1.</span> <span class="nav-text">Code-first or schema-first</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Schema-first-and-gqlgen"><span class="nav-number">1.2.</span> <span class="nav-text">Schema-first and gqlgen</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Schema-Definition-Language"><span class="nav-number">1.3.</span> <span class="nav-text">Schema Definition Language</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Object-types-and-fields"><span class="nav-number">1.3.1.</span> <span class="nav-text">Object types and fields</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Arguments"><span class="nav-number">1.3.2.</span> <span class="nav-text">Arguments</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Query-and-Mutation-types"><span class="nav-number">1.3.3.</span> <span class="nav-text">Query and Mutation types</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Scalar-types"><span class="nav-number">1.3.4.</span> <span class="nav-text">Scalar types</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Enumeration-types"><span class="nav-number">1.3.5.</span> <span class="nav-text">Enumeration types</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Lists-and-Non-null"><span class="nav-number">1.3.6.</span> <span class="nav-text">Lists and Non-null</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Interfaces"><span class="nav-number">1.3.7.</span> <span class="nav-text">Interfaces</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Union-types"><span class="nav-number">1.3.8.</span> <span class="nav-text">Union types</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Input-types"><span class="nav-number">1.3.9.</span> <span class="nav-text">Input types</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Queries-and-Mutations"><span class="nav-number">1.4.</span> <span class="nav-text">Queries and Mutations</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Fields"><span class="nav-number">1.4.1.</span> <span class="nav-text">Fields</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Arguments-1"><span class="nav-number">1.4.2.</span> <span class="nav-text">Arguments</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Alias"><span class="nav-number">1.4.3.</span> <span class="nav-text">Alias</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Fragments"><span class="nav-number">1.4.4.</span> <span class="nav-text">Fragments</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Operation-name"><span class="nav-number">1.4.5.</span> <span class="nav-text">Operation name</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Variables"><span class="nav-number">1.4.6.</span> <span class="nav-text">Variables</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Driectives"><span class="nav-number">1.4.7.</span> <span class="nav-text">Driectives</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mutation"><span class="nav-number">1.4.8.</span> <span class="nav-text">Mutation</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
